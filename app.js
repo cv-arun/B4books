@@ -8,13 +8,13 @@ const mongoose = require("mongoose");
 const fileupload = require('express-fileupload')
 const MongodbSession = require('connect-mongodb-session')(sessions)
 const hbs = require('express-handlebars');
-
+const  env=require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 
 var app = express();
-const mongoURI = "mongodb://localhost:27017/BBooks";
+const mongoURI = `mongodb+srv://b4books:${process.env.mongo_password}@b4books.ymxybhu.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(mongoURI).then((res) => {
   console.log("mongodb connected")
 })
