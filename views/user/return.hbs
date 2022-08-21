@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/stylesheets/viewUser.css">
+
+
+<div></div>
+<div class="container-fluid" style="margin-top:10rem ;">
+    <div class="main-body">
+        <div class="row gutters-sm">
+
+            <div class="col-md-6 mb-3">
+                <div class="card mb-3">
+                    <a href="/userAddress">
+                        <div class="card-body border border-primary shadow">
+                            + address
+                        </div>
+                    </a>
+                </div>
+
+
+
+                <form action="/return" method="post" id="return">
+                    {{#each adress}}
+                    <label class="w-100 shadow">
+                        <div class="card mb-1">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-1 row">
+
+                                        <input class="form-check-input mt-2 ml-2" type="radio" value="{{this._id}}"
+                                            name="addressId" id="input{{this._id}}" checked>
+
+                                    </div>
+                                    <div class="col-11">
+                                        <h3>{{this.fullname}}</h3>
+                                        <span>{{this.mobile}}</span>
+                                        <div class="d-flex">
+                                            <span>{{this.line1}},</span>
+                                            <span>{{this.line2}},</span>
+                                            <span>{{this.pincode}},</span>
+                                            <span>{{this.district}},</span>
+                                            <span>{{this.state}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    {{/each}}
+
+
+            </div>
+            <div class="col-md-1"></div>
+            <div class="row mb-2 position-relative d-md-none">
+                <div class="d-flex-reverse justify-content-between mt-5">
+
+                    <button type="submit" class="btn btn-primary " form="order">Place order</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+
+                <div class="row">
+
+
+                    {{#each holding.log}}
+                    {{#if product}}
+                    {{#unless returnRequest}}
+                    <label>
+                        <input type="radio" name="{{this.product._id}}" value="{{this.product._id}}" class="radio">
+                        <div class="card mb-1 col-md-2 shadow w-100">
+
+                            <div class="card-body w-100 ">
+                                <img class="img-fluid mx-auto d-block image "
+                                    src="/images/product-image/{{this.product._id}}1.jpg">
+
+                            </div>
+
+                        </div>
+                    </label>
+                    {{/unless}}
+
+                    {{/if}}
+                    {{/each}}
+
+
+
+
+                </div>
+
+                <div class="row mb-2 position-relative d-none d-md-block">
+                    <div class="d-flex-reverse justify-content-between mt-5">
+
+                        <button type="submit" class="btn btn-primary " form="return">return Book</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+  
+    if (!document.getElementsByClassName('radio').length) {
+        setTimeout(function () {
+            swal('you dont have any Book to return', "you can only return the book after it is delivered to you", 'info').then(() => {
+                location.href = "/my-account"
+            })
+
+        }, 500)
+    }
+</script>

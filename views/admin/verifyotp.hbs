@@ -1,0 +1,21 @@
+<div class="container height-100 d-flex justify-content-center align-items-center">
+    <div class="position-relative">
+        <div class="card p-2 text-center">
+            <h6>Please enter the one time password <br> to verify your account</h6>
+            <div> <span>A code has been sent to</span> <small>{{adminnumber}}</small> </div>
+            <form action="/admin/check-otp" method="post">
+            <input name="adminnumber" value="{{adminnumber}}" class="invisible">
+                <div id="otp" class="inputs d-flex  justify-content-center mt-2">
+                    <input class=" form-control rounded" type="text" id="first" maxlength="6" name="otp"
+                        style="width: 10rem;" />
+                </div>
+                
+               
+
+                <button type="submit" class="btn btn-danger px-4 validate mt-4">Validate</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+<link rel="stylesheet" href="/stylesheets/otppage.css">

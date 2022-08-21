@@ -1,0 +1,18 @@
+
+a {
+  color: #00B7FF;
+}
+
+:root {
+ 
+  --adminPrimary: #4723d9;
+}
+
+.adminPrimary{
+  
+  background-color:var(--adminPrimary);
+}
+
+.error {
+  color: red;
+}

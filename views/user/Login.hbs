@@ -1,0 +1,280 @@
+<div class="section">
+    <div class="container">
+        <div class="row full-height justify-content-center">
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                    <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+                    {{#if userlog.register}}
+                    <input class="checkbox " type="checkbox" id="reg-log" name="reg-log" checked="checked" />
+                    {{else}}
+                    <input class="checkbox " type="checkbox" id="reg-log" name="reg-log" />
+                    {{/if}}
+
+
+
+                    <label for="reg-log"></label>
+                    <div class="card-3d-wrap mx-auto shadow">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <h4 class="mb-4 pb-3" style="color: #fff;">Log In</h4>
+                                        {{#with userlog}}
+                                        {{#if invalid}}
+                                        <p>Invalid credential</p>
+                                        {{/if}}
+                                        {{#if blocked}}
+                                        <p>you are blocked by admin</p>
+                                        {{/if}}
+                                        {{/with}}
+
+                                        <form action="/userlogin" method="post" id="userLoginForm">
+                                            <div class="form-group">
+                                                <input type="email" name="logemail" class="form-style"
+                                                    placeholder="Your Email" id="email" autocomplete="off">
+
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="logpassword" class="form-style"
+                                                    placeholder="Your Password" id="logpass" autocomplete="off">
+
+                                            </div>
+                                            <button type="submit" class="btn mt-4 ">submit</button>
+                                        </form>
+                                        <p class="mb-0 mt-4 text-center">
+                                        <p class="link">Forgot your
+                                            password? Login with OTP</p>
+                                        </p>
+
+                                        <hr>
+                                        <h6 class="text-white">OR</h6>
+
+                                        {{#if userlog.userMobileNotFound}}
+                                        <p>User not found</p>
+                                        {{/if}}
+
+
+
+                                        <form action="/loginwithotp" method="post" id="userOtpLoginForm">
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="lognumber" class="form-style"
+                                                    placeholder="Enter Your mobile number" id="loginnumber"
+                                                    autocomplete="off">
+
+                                            </div>
+                                            <button type="submit" class="btn mt-4 btn-lg">Login with OTP</button>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <form action="/usersignup" method="post" id="myform">
+
+                                            <h4 class="mb-4 pb-3" style="color: #fff;">Sign Up</h4>
+                                            {{#if userlog.alreadyregistered}}
+                                            <p>User alreadyregistered</p>
+                                            {{/if}}
+
+                                            <div class="form-group">
+
+                                                <input value="" type="text" name="logname"
+                                                    class="form-style form-control " placeholder="Your Full Name"
+                                                    id="logname">
+
+
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="email" name="logemail" class="form-style" value=""
+                                                    placeholder="Your Email" id="logemail">
+
+
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="string" name="lognumber" class="form-style "
+                                                    placeholder="Your mobile number" id="lognumber">
+
+
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="logpassword" class="form-style "
+                                                    placeholder="Your Password" id="logpassword" autocomplete="off">
+
+
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" class="form-style form-control"
+                                                    placeholder="Confirm Password" id="clogpass" name="confirmpassword" autocomplete="off">
+
+
+                                            </div>
+
+
+                                            <button type="submit" class="btn mt-4 ">submit</button>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/logincss.css">
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<script>
+
+    /*  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://www.fast2sms.com/dev/bulkV2",
+    "method": "POST",
+    "headers": {
+      "authorization": "iw8avNF4WoZyDsgtJc1TGXpBqIzEk6f9hjUdHbmSAeL27ClKVuEgGw6cCe5qtW2HQIAyuiB1F48mT0Lz",
+    },
+    "data": {
+      "variables_values": "5599",
+      "route": "otp",
+      "numbers": "9207277154",
+    }
+  }
+  
+  function hello(){
+      console.log("hello working")
+      $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+  }*/
+
+
+</script>
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#myform").validate({
+            rules: {
+                lognumber: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10
+
+
+                },
+                logname: {
+                    required: true,
+                    minlength: 4
+                },
+
+                logemail: {
+                    required: true
+                    , email: true
+                },
+                logpassword: {
+                    required: true,
+                    maxlength: 10,
+                    minlength: 4
+                },
+                confirmpassword: {
+                    required: true,
+                    equalTo: "#logpassword"
+
+                }
+
+
+            },
+            messages: {
+
+                confirmpassword: {
+                    equalTo: "enter same password",
+                    required: 'This field is required'
+                },
+                lognumber: {
+                    required: 'This field is required',
+                    minlength: "enter 10 numbers",
+                    maxlength: "enter 10 numbers"
+
+                }
+            }
+
+        })
+    })
+
+
+
+
+</script>
+
+
+
+
+{{!--
+
+document.getElementById('logname').addEventListener("blur",myfunction0)
+function myfunction0(){
+let x = document.getElementById('logname').value;
+console.log(x)
+if(x==""){
+
+document.getElementById('namelabel').style.display='block'
+
+}else{
+
+document.getElementById('namelabel').style.display='none';
+
+}
+}
+
+document.getElementById('logemail').addEventListener("blur", myfunction1)
+function myfunction1() {
+console.log("invoked")
+let x = document.getElementById('logemail').value
+console.log(x)
+if (x == "" || (x.includes('@') == false)) {
+
+document.getElementById('emaillabel').style.display = 'block';
+
+} else {
+
+document.getElementById('emaillabel').style.display = 'none';
+}
+}
+
+
+document.getElementById('lognumber').addEventListener("blur", myfunction2)
+function myfunction2() {
+
+let y = document.getElementById('lognumber').value
+let x=parseInt(y)
+console.log()
+if (x.length < 10||x.length>10) {
+
+    document.getElementById('labelnumber').style.display = 'block';
+
+    } else {
+
+    document.getElementById('labelnumber').style.display = 'none';
+    }
+    }
+
+
+
+    document.getElementById('logpassword').addEventListener("blur", myfunction3)
+    function myfunction3() {
+
+    let x = document.getElementById('logpassword').value
+
+    if (x.length < 6) { document.getElementById('passwordlabel').style.display='block' ; } else {
+        document.getElementById('passwordlabel').style.display='none' ; } } --}}

@@ -1,0 +1,95 @@
+<div class="container mtop-15">
+    <div class="main-body">
+
+        <div class="gutters-sm">
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3>Personel informations</h3>
+                    <hr>
+                    <form method="post" action="/update-user">
+                        <div class="row">
+
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+
+
+                            <input class="pointer" value="{{user.logname}}" style="border: none; pointer-events: none;"
+                                name="fullname">
+
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <input class="pointer" value="{{user.logemail}}" style="border: none;pointer-events: none;"
+                                name="mailid">
+                            {{#if duplicate}}
+                            <P>This email id alredy exist</P>
+                            {{/if}}
+                        </div>
+                        <hr>
+
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Mobile</h6>
+                            </div>
+                            <input class="pointer" value="{{user.lognumber}}" style="border: none;pointer-events: none;"
+                                name="mobnumber">
+                        </div>
+
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+
+
+                            </div>
+                            <input value="{{user._id}}" name="userId" class="invisible">
+                            <div class="col-sm-12">
+                                <button style="display: none;" class="btn btn-info " id="updateBtn">Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <button class="btn btn-primary " id="editBtn">Edit</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/myAccount.css">
+
+<style>
+    input[name=fullName] {
+        pointer-events: none;
+    }
+</style>
+
+<script>
+    document.getElementById('editBtn').addEventListener('click', showUpdate)
+    document.getElementById('updateBtn').addEventListener('click', showEdit)
+
+    function showUpdate() {
+
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('updateBtn').style.display = 'block';
+
+        for (let i = 0; i < 3; i++) {
+            console.log(i)
+            document.getElementsByClassName('pointer')[i].style.pointerEvents = 'visible'
+        }
+
+    }
+
+    function showEdit() {
+        document.getElementById('editBtn').style.display = 'block';
+        document.getElementById('updateBtn').style.display = 'none';
+
+    }
+</script>

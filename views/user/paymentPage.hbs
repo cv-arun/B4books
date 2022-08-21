@@ -1,0 +1,14 @@
+<script src="/javascripts/payment.js"></script>
+
+<div class="vh-100 align-middle">
+    <div class="card text-center mx-auto shadow rounded" style="width: 18rem; margin-top:30vh">
+        <div class="card-body">
+            <p class="card-text"></p>
+
+            <h5 class="card-title">Total Payable amount: {{divide order.amount 100}}</h5>
+            <a onclick="payment('{{json order}}')" class="btn btn-primary" id="rzp-button1">Pay</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>

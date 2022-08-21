@@ -1,0 +1,109 @@
+<section style="margin-top: 6rem;">
+    <h1 class="text-center">All Return requests</h1>
+   
+    <table class="table table-hover border" id="orderDataTable">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th scope="col">Product image</th>
+                <th scope="col">Email</th>
+                <th scope="col">status</th>
+
+                <th scope="col">process</th>
+                <th scope="col">More</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each request}}
+            <tr>
+                <th class="align-middle" scope="row">{{inc1 @index}}</th>
+                <td class="align-middle" style="width: 4rem;height:4rem ;">
+                    {{#each this.items.product}}
+                    {{#if @first}}
+                    <img src="/images/product-image/{{this._id}}1.jpg" alt="image" style="max-width: 100%;">
+                    {{/if}}
+                    {{/each}}
+                </td>
+
+                <td class="align-middle">{{this.user.logemail}}</td>
+
+
+                <td class="align-middle">
+                    {{#if this.completed}}
+                    <P class="text-success">completed</P>
+                    {{else}}
+                    <p class="text-danger" id="pending{{this._id}}">Pending</p>
+                    {{/if}}
+                </td>
+
+                <td>
+                    {{#unless this.completed }}
+                    <button type="button" class="btn border border-info" data-toggle="modal" id="return{{this._id}}"
+                        data-target="#myModal{{this._id}}">
+                        return
+                    </button>
+                    {{/unless}}
+                </td>
+
+                <td class="align-middle"><a class="btn btn-info">view more</a>
+                </td>
+
+
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal{{this._id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Are you sure this product is retured
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button onclick="returned('{{this._id}}')" class="btn btn-success"
+                                    data-dismiss="modal">Confirm</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+
+
+
+    </div>
+</section>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+
+<script>
+    $(document).ready(function () {
+        $('#orderDataTable').DataTable();
+    });
+
+    function returned(id) {
+        axios.post('/admin/returned/' + id).then((response) => {
+            if (response.status == 200) {
+
+
+                document.getElementById('return' + id).style.display = 'none'
+                document.getElementById('pending' + id).innerHTML = 'Completed'
+                document.getElementById('pending' + id).style.color = 'green'
+
+
+                console.log(response)
+            }
+
+        })
+    }
+
+</script>

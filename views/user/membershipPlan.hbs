@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="/stylesheets/membership.css">
+
+
+<div id="wrapper" class="mtop-15" style="margin-top: 15rem;">
+    <div class="row">
+        <div class="col-md-10 mx-auto p-5 border border-primary text-center">
+            {{#if user.membership}}
+            <h1 style="font-family: 'Rubik', sans-serif;font-weight: 300;"><span>Your Current plan:
+                </span>{{user.membership.plan}}</h1>
+            <span>Your plan ends in {{time }} days</span>
+            {{else}}
+            <h1>You don't have an active plan'</h1>
+            {{/if}}
+        </div>
+
+
+    </div>
+
+    <div id="pricing-tables" class="row mt-5">
+        {{#each membershipPlans}}
+
+        <div class="col-md-4 mx-auto">
+
+            {{#if ../user.membership}}
+            <div class="pricing-table featured mx-auto mb-5">
+                <div class="cardhead">
+                    <div class="price">rs.{{this.membershipFee}}<span>/{{this.planDuration}}month</span></div>
+                </div>
+                <div class="signup">
+                    <a class="mt-3" data-toggle="modal" data-target="#my-modal2{{this._id}}">Renew Now</a>
+                </div>
+            </div>
+            {{/if}}
+
+            <div class="pricing-table featured mx-auto">
+                <div class="cardhead">
+                    <div class="title">{{this.plan}}</div>
+                    <div class="price">rs.{{this.membershipFee}}<span>/{{this.planDuration}}month</span></div>
+                </div>
+                <div class="features">
+                    <ul>
+                        <li>{{this.holdingLimit}} <span> Book can hold at atime</span></li>
+                        <li>{{this.perDeliveryLimit}} <span>Book per delivery</span></li>
+
+                    </ul>
+                    <ul>
+                        <li><span>Refundable caution deposit :</span>Rs.{{this.cautionDeposit}}</li>
+                        <li> <span>registration fee :</span>Rs.{{this.registrationFee}}</li>
+
+                    </ul>
+                </div>
+                <div class="signup">
+                    <a data-toggle="modal" data-target="#my-modal{{this._id}}"
+                        onclick="calc('{{this._id}}',{{this.cautionDeposit}},{{this.registrationFee}},{{this.membershipFee}})">Choose
+                        plan</a>
+                </div>
+            </div>
+
+            <div class="container d-flex justify-content-center">
+
+                <div id="my-modal{{this._id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
+                        <div class="modal-content  border-0 mx-3">
+                            <div class="modal-body  p-0">
+                                <div class="card text-center">
+                                    <div class="summary" style="height: 30rem;">
+                                        <h3>{{this.plan}}</h3>
+                                        <div class="summary-item mt-5"><span class="text">Membership Fee:&#8377
+                                            </span><span id="count" class="price">{{this.membershipFee}}</span>
+                                        </div>
+                                        <div class="summary-item mt-5"><span class="text">Refundable Caution
+                                                deposit:&#8377
+                                            </span><span id="count" class="price">{{this.cautionDeposit}}</span>
+                                        </div>
+                                        <div class="summary-item mt-5"><span class="text">Registration Fee:&#8377
+                                            </span><span class="price">{{this.registrationFee}}</span>
+                                        </div>
+
+                                        <div class="summary-item mt-5"><span class="text">Total amount:&#8377
+                                            </span><span class="price" id="{{this._id}}total"></span>
+                                        </div>
+
+
+                                        <form action="/choosePlan/{{this._id}}" method="get">
+                                            <button type="submit"
+                                                class="btn btn-primary btn-lg btn-block col-6 mx-auto mt-5">Pay</button>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="my-modal2{{this._id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
+                        <div class="modal-content  border-0 mx-3">
+                            <div class="modal-body  p-0">
+                                <div class="card text-center">
+                                    <div class="summary" style="height: 15rem;">
+                                        <h3>{{this.plan}}</h3>
+                                        <div class="summary-item mt-5"><span class="text">Membership Fee:&#8377
+                                            </span><span id="count" class="price">{{this.membershipFee}}</span>
+                                        </div>
+
+                                        <form action="/choosePlan/{{this._id}}" method="get">
+                                            <button type="submit"
+                                                class="btn btn-primary btn-lg btn-block col-6 mx-auto mt-5">Pay</button>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+
+    </div>
+</div>
+
+<script>
+    function calc(id, deposit, registration, membership) {
+        let total = parseInt(deposit) + parseInt(registration) + parseInt(membership)
+        document.getElementById(id + "total").innerHTML = total
+    }
+</script>

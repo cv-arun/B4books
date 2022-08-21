@@ -1,0 +1,60 @@
+<section style="margin-top: 6rem;">
+
+
+    <table class="table table-hover border" id="adminProductTable">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th scope="col">user Email</th>
+                <th scope="col">Plan name</th>
+                <th scope="col">amount</th>
+                <th scope="col">payment status</th>
+                <th scope="col">Date</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {{#each payment}}
+            <tr>
+                <th class="align-middle" scope="row">{{inc1 @index}}</th>
+                <td class="align-middle">{{this.userid.logemail}}</td>
+                <td class="align-middle">{{this.membership.plan}}</td>
+                <td class="align-middle">{{this.amount}}</td>
+                <td class="align-middle">
+                    {{#if this.success}}
+                    <p class="text-success">Payment success</p>
+                    {{else}}
+                    <p class="text-danger">Payment failure</p>
+                    {{/if}}
+                </td>
+
+                <td class="align-middle">{{format this.createdAt}}</td>
+
+
+
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+
+
+
+    </div>
+</section>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+
+
+<script>
+    //data table
+    $(document).ready(function () {
+        $('#adminProductTable').DataTable();
+    });
+
+
+
+</script>

@@ -1,0 +1,182 @@
+<link rel="stylesheet" href="/stylesheets/viewUser.css">
+<div></div>
+<div class="container" style="margin-top:8rem ;">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                class="rounded-circle" width="150">
+                            <div class="mt-3">
+                                <h4>{{user.logname}}</h4>
+                                <p class="text-secondary mb-1">{{user.membership.plan}} reader</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">user status</h6>
+
+                            {{#if user.status}}
+                            <span>active</span>
+
+                            <a class="btn btn-primary" data-toggle="modal" data-target="#myModal{{this._id}}">Block
+                                User</a>
+
+                            {{else}}
+                            <span>Blocked</span>
+                            <a href="/admin/UnblockUser/{{user._id}}" class="btn btn-primary">UnBlock</a>
+
+                            {{/if}}
+
+
+                        </li>
+                        <div class="modal" id="myModal{{this._id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        Are you sure, You want to block {{user.logname}}
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            data-dismiss="modal">Close</button>
+                                        <a href="/admin/blockUser/{{user._id}}" class="btn btn-danger">Block user</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Verification status</h6>
+                            <span class="text-secondary">verified</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+
+                            <img style="max-width:25rem;"
+                                src="https://enewz.in/wp-content/uploads/2020/02/aadhaar-main.jpg"
+                                alt="no image uploaded">
+
+
+
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.logname}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.logemail}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.lognumber}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Premium level</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{user.membership.plan}} reader
+                            </div>
+                        </div>
+                        <hr>
+                        
+
+                    </div>
+                </div>
+
+                <style>
+                    a {
+                        color: black;
+                        text-decoration: none;
+                    }
+                </style>
+
+                <div class="row gutters-sm">
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3">Currently Holding books</h6>
+                                <ul class="list-group list-group-flush" style="overflow-y: scroll;max-height: 16rem;">
+                                    {{#each orderlog.log}}
+                                    {{#unless this.return}}
+                                    <a href="/admin/prodectDetails/{{this.product._id}}">
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            {{this.product.title}}
+                                        </li>
+                                    </a>
+                                    {{/unless}}
+                                    {{/each}}
+                                </ul>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3">returned books</h6>
+                                <ul class="list-group list-group-flush" style="overflow-y: scroll;max-height: 16rem;">
+                                    {{#each orderlog.log}}
+                                    {{#if this.return}}
+                                    <a href="/admin/prodectDetails/{{this.product._id}}">
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            {{this.product.title}}
+                                        </li>
+                                    </a>
+                                    {{/if}}
+                                    {{/each}}
+                                </ul>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+</script>

@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="/stylesheets/membership.css">
+
+<div class="  btn btn-primary" style="margin-top: 5rem;margin-left: 5rem;">
+    <a data-toggle="modal" data-target="#my-modal">Add New Plan</a>
+</div>
+<div id="wrapper" class="mt-5" style="margin-top: 10rem;">
+    <div id="pricing-tables">
+
+
+        {{#each membershipPlans}}
+        <div class="pricing-table featured rounded">
+            <div class="cardhead rounded">
+                <div class="title rounded">{{this.plan}}</div>
+                <div class="price">rs.{{this.membershipFee}}<span>/{{this.planDuration}} month</span></div>
+            </div>
+            <div class="features ">
+                <ul>
+                    <li>{{this.holdingLimit}}<span> Book can hold</span></li>
+                    <li>{{this.perDeliveryLimit}} <span> Book per delivery</span></li>
+                    <li><span>Registration Fee</span> Rs.{{this.registrationFee}} </li>
+                    <li><span>Caution deposit</span> Rs.{{this.cautionDeposit}} </li>
+                </ul>
+            </div>
+            <div class="signup">
+                <a class="rounded btn" href="/admin/editPlan/{{this._id}}">Edit</a>
+                <a class="rounded btn" href="/admin/deletePlan/{{this._id}}">Delete</a>
+
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+
+
+
+<div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered justify-content-center " role="document">
+        <div class="modal-content  border-0 mx-3">
+            <div class="modal-body  p-0">
+                <div class="card text-center">
+
+
+
+                    <form class=" mt-5 border bg-light rounded p-5" action="/admin/addNewPlan" id="newPlan"
+                        method="post">
+                        <h1 class="text-center">Add New Plan</h1>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example1">Plan name</label>
+                            <input type="text" id="form1Example1" class="form-control" name="plan" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example2">Registration fee</label>
+                            <input type="text" id="form1Example2" class="form-control" name="registrationFee" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example3">caution deposit</label>
+                            <input type="text" id="form1Example3" class="form-control" name="cautionDeposit" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example4">Membership Fee</label>
+                            <input type="text" id="form1Example4" class="form-control" name="membershipFee" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example"5>per delivery limit</label>
+                            <input type="text" id="form1Example5" class="form-control" name="perDeliveryLimit" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example6">Holding limit</label>
+                            <input type="text" id="form1Example6" class="form-control" name="holdingLimit" />
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example7">Plan duration in month</label>
+                            <input type="text" id="form1Example7" class="form-control" name="planDuration" />
+                        </div>
+
+
+
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block col-4 mx-auto">Add Plan</button>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    $(document).ready(function () {
+        $("#newPlan").validate({
+            rules: {
+                 plan: {
+                    required: true
+                },
+                 registrationFee: {
+                    required: true,
+                  
+                },
+                planDuration: {
+                    required: true,
+                   
+                },
+                holdingLimit: {
+                    required: true,
+                   
+                },
+                perDeliveryLimit: {
+                    required: true,
+                    
+                },
+                membershipFee: {
+                    required: true,
+                   
+                },
+                cautionDeposit: {
+                    required: true,
+                   
+                },
+               
+               
+            },
+
+
+
+            messages: {
+                plan: {
+                    required: "Please enter plan name",
+                }
+
+            }
+
+        });
+    });
+
+</script>

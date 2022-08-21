@@ -1,0 +1,130 @@
+<link rel="stylesheet" href="/stylesheets/cart.css">
+<main class="page mtop-15" id="cart-main">
+    <section class="shopping-cart dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2>Your Cart</h2>
+
+            </div>
+            <div class="content">
+
+                <div class="row">
+
+
+                    <div class="col-md-12 col-lg-8">
+                        <div class="row">
+                            <a href="/" class="col-5 btn btn-primary mx-auto">Add new Book to cart</a>
+                            <a href="/return" class="col-5 btn btn-primary mx-auto">Return your Book</a>
+                        </div>
+                        {{#unless cart.cartItems}}
+                        <img src="/images/empty_cart.jpg" alt="Your cart is empty" class="w-100 h-75">
+                        {{/unless}}
+                        {{#each cart.cartItems}}
+                        <div class="items border border-primary p-4">
+                            <div class="product ">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img class="img-fluid mx-auto d-block image"
+                                            src="/images/product-image/{{this._id}}1.jpg">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="col-md-5 product-name">
+                                                    <div class="product-name">
+                                                        <a>{{this.title}}</a>
+                                                        <div class="product-info">
+                                                            <div>Author <span class="value">{{this.author}}</span></div>
+                                                            <div>Publisher <span
+                                                                    class="value">{{this.publication}}</span></div>
+                                                            <div>Rating<span id="{{this._id}}" class="value">{{star
+                                                                    this.rating}}</span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="d-flex flex-row-reverse"><a class="btn btn-primary "
+                                    href="/remove-from-cart/{{_id}}">Remove from Cart</a></div>
+
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{#if cart.cartItems}}
+                    <div class="col-md-12 col-lg-4">
+                        <div class="summary">
+                            <h3>Summary</h3>
+                            <div class="summary-item"><span class="text">number of books in cart</span><span id="count"
+                                    class="price">0</span>
+                            </div>
+                            <div class="summary-item"><span class="text">maximum number of books per
+                                    delivery</span><span id="count"
+                                    class="price">{{user.membership.perDeliveryLimit}}</span>
+                            </div>
+                            <div class="summary-item"><span class="text">Membership plan</span><span
+                                    class="price">{{user.membership.plan}}</span>
+                            </div>
+                            <div class="summary-item"><span class="text">Delivery charge</span><span
+                                    class="price">FREE</span>
+                            </div>
+                            <div class="summary-item"><span class="text">expected delivery</span><span id="deliveryDate"
+                                    class="price">In
+                                    3 days</span>
+                            </div>
+
+                            <a class="btn btn-primary btn-lg btn-block" href="/checkOut">Checkout</a>
+
+                            <div class="summary-item mt-4"><a href="/return"><span class="text">Tap here to Return your
+                                        book</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', count)
+    document.addEventListener('DOMContentLoaded', deliverydate)
+
+  
+
+    function count() {
+
+        var xhr = new XMLHttpRequest();
+        var url = '/cart-count/';
+        xhr.open("GET", url, true);
+
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let data = JSON.parse(this.responseText)
+                document.getElementById('count').innerHTML = data.count
+
+            }
+        }
+
+        xhr.send();
+    }
+
+    function deliverydate() {
+        let deliveryDate = Date.parse(new Date()) + 1000 * 60 * 60 * 24 * 3;
+        document.getElementById("deliveryDate").innerHTML = new Date(deliveryDate).toUTCString().slice(0, 12)
+    }
+
+</script>

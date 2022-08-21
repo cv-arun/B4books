@@ -1,0 +1,254 @@
+<link rel="stylesheet" href="/stylesheets/navbar.css">
+
+
+<div class="fixed-top">
+	<header>
+
+
+		<div class="super_container">
+
+			<!-- Header -->
+
+			<header class="header">
+
+				<!-- Top Bar -->
+
+				<div class="top_bar">
+					<div class="container">
+						<div class="row">
+							<div class="col d-flex flex-row">
+								<div class="top_bar_contact_item">
+									<div class="top_bar_icon"><img
+											src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918577/phone.png"
+											alt=""></div><a href="tel:9207277154">+91 9207277154</a>
+								</div>
+								<div class="top_bar_contact_item">
+									<div class="top_bar_icon"><img
+											src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918597/mail.png"
+											alt=""></div><a href="mailto:cvaruncv1998@gmail.com">contact@b4books.com</a>
+								</div>
+								<div class="top_bar_content ml-auto">
+
+									<div class="top_bar_menu">
+										<ul class="standard_dropdown top_bar_dropdown">
+											<li><a href="/">Home</a></li>
+											{{#if banner}}
+											{{#if user.membershipstatus}}
+
+											{{log user.membershipstatus}}
+											<li>
+												<a href="/membership">Membership Plan<i
+														class="fas fa-chevron-down "></i></a>
+											</li>
+											{{else}}
+											<li class="blink">
+												<a href="/membership">Membership Plan<i
+														class="fas fa-chevron-down "></i></a>
+											</li>
+											{{/if}}
+											{{else}}
+											<li>
+												<a href="/membership">Membership Plan<i
+														class="fas fa-chevron-down "></i></a>
+											</li>
+											{{/if}}
+
+										</ul>
+									</div>
+									<div class="top_bar_user">
+										<div class="user_icon"><img
+												src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg"
+												alt=""></div>
+										{{#if user}}
+										<div><a href="/logout">Logout</a></div>
+										<div>
+											<p>{{user.logname}}</p>
+										</div>
+										{{else}}
+										<div><a href="/register">Register</a></div>
+										<div><a href="/login">Login</a></div>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Header Main -->
+
+				<div class="header_main" style="background-color:#2874f0 ;">
+					<div class="container">
+						<div class="row">
+
+							<!-- Logo -->
+							<div class="col-lg-2 col-sm-3 col-md-3  col-5 order-1">
+								<div class="logo_container">
+									<div class="logo"><a href="/">B4BOOKS</a></div>
+								</div>
+							</div>
+
+							<!-- Search -->
+							<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+								<div class="header_search">
+									<div class="header_search_content">
+										<div class="header_search_form_container">
+											<form action="#" class="header_search_form clearfix">
+												<input type="search" required="required" class="header_search_input"
+													placeholder="Search by title or author" id="myInput" onkeyup="myFunction()" >
+												<div class="custom_dropdown">
+													<div class="custom_dropdown_list">
+														<span class="custom_dropdown_placeholder clc">All
+															Categories</span>
+														<i class="fas fa-chevron-down"></i>
+														<ul class="custom_list clc"
+															style="overflow-y:scroll;height:5rem ;">
+															<li><a class="clc" href="#">All Categories</a></li>
+													</div>
+												</div>
+												<button type="submit" class="header_search_button trans_300"
+													value="Submit"><img
+														src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
+														alt=""></button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- My profile -->
+							<div class="col-lg-4 col-md-9 col-7 order-lg-3 order-2 text-lg-left ">
+								<div class="wishlist_cart d-flex flex-row-reverse justify-content-start">
+									<div class="d-none d-lg-block m-3"><a href="/wish" style="font-size: 1rem;"><i
+												class="bi bi-heart"
+												style="font-size: 3rem;color: aliceblue;"></i></i><span
+												class="badge badge-light " style="position: absolute;"
+												id="wishCount-h">0</span></a>
+									</div>
+
+									<div class=" m-3 d-lg-none"><a href="/cart-page" style="font-size: 5vw;"><i
+												class="bi bi-cart " style="font-size: 10vw;color: aliceblue;"></i><span
+												class="badge badge-light " style="position: absolute;"
+												id="cart-count-sm">0</span></a></div>
+
+									<div class=" m-3 d-none d-lg-block m-3"><a href="/cart-page"
+											style="font-size: 1rem;"><i class="bi bi-cart "
+												style="font-size: 3rem;color: aliceblue;"></i><span
+												class="badge badge-light " style="position: absolute;color: black;"
+												id="cart-count-lg">0</span></a></div>
+
+									<div class="d-none d-lg-block m-3"><a href="/my-account" style="font-size: 1rem;"><i
+												class="bi bi-person-circle"
+												style="font-size: 3rem;color: aliceblue;"></i></a></div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Main Navigation -->
+
+				<nav class="main_nav d-lg-none">
+					<div class="container">
+						<div class="row">
+
+
+							<div class="main_nav_content">
+
+
+
+
+
+								<!-- Main Nav Menu -->
+
+
+								<!-- Menu Trigger -->
+
+								<div class="menu_trigger_container ml-auto">
+									<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+										<div class="menu_burger">
+											<div class="menu_trigger_text">menu</div>
+											<div class="cat_burger menu_burger_inner">
+												<span></span><span></span><span></span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</nav>
+
+
+				<!-- Menu -->
+
+				<div class="page_menu">
+					<div class="container">
+						<div class="row">
+							<div class="col">
+
+								<div class="page_menu_content">
+
+									<div class="page_menu_search">
+										<form action="#">
+											<input type="search" required="required" class="page_menu_search_input"
+												placeholder="Search for products...">
+											<button type="submit" class="header_search_button trans_300"
+												value="Submit"><img
+													src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
+													alt=""></button>
+
+										</form>
+									</div>
+									<ul class="page_menu_nav">
+
+										<li class="page_menu_item">
+											<a href="/">Home<i class="fa fa-angle-down"></i></a>
+										</li>
+										<li class="page_menu_item">
+											<a href="/membership">Membership Plan</a>
+										</li>
+
+										<li class="page_menu_item">
+											<a href="/my-account">My account</a>
+										</li>
+										<li class="page_menu_item">
+											<a href="/">Products <i class="fa fa-angle-down"></i></a>
+										</li>
+										<li class="page_menu_item">
+											{{#if user}}
+											<a href="/logout">Logout <i class="fa fa-angle-down"></i></a>
+											{{else}}
+											<a href="/register">Register <i class="fa fa-angle-down"></i></a>
+											<a href="/login">Login <i class="fa fa-angle-down"></i></a>
+
+											{{/if}}
+										</li>
+
+
+									</ul>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+		</div>
+	</header>
+
+</div>
+
+
+<script src="/javascripts/navbarjs.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="/javascripts/userHeader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>

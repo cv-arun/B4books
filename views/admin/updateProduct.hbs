@@ -1,0 +1,170 @@
+<div class="row">
+
+
+  <form class="col-md-4 mx-auto mt-5 border  p-5" action="/admin/updateProduct/{{product._id}}" method="post"
+    enctype="multipart/form-data">
+    <h1 class="text-center">Enter Book details</h1>
+    <div class="form-outline mb-4">
+      <input type="text" id="form1Example1" class="form-control" name="title" value="{{product.title}}" required/>
+      <label class="form-label" for="form1Example1">Title</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="text" id="form1Example1" class="form-control" name="author" value="{{product.author}}" required/>
+      <label class="form-label" for="form1Example1">Author</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" id="form1Example1" class="form-control" name="publisher" value="{{product.publisher}}" required/>
+      <label class="form-label" for="form1Example1">Publisher</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="number" id="form1Example1" class="form-control" name="rating" value="{{product.rating}}" required/>
+      <label class="form-label" for="form1Example1">Rating</label>
+    </div>
+
+
+
+    <div class="form-outline mb-4">
+
+      <label class="form-label" for="form1Example1">Catogory</label>
+
+      <select class="form-control" id="catagory" name="catagory" oninput="run()">
+        <option value="{{product.catagory._id}}">{{product.catagory.catagory}}</option>
+        {{#each catagories}}
+        <option value="{{this._id}}">{{this.catagory}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+
+    <div class="form-outline mb-4">
+
+      <label class="form-label" for="form1Example1">sub catogory</label>
+      <P>current selection: {{product.subCatogory.subCatagory}}</P>
+      <select id="subcatagory" class="form-control" name="subCatogory" onclick="run()" required>
+        <option value="{{product.catagory._id}}">{{product.subCatogory.subCatagory}}</option>
+
+      </select>
+
+    </div>
+
+    <div class="form-outline mb-4">
+      <label for="inputState">Premium level</label>
+      <select id="inputState" class="form-control" name="PremiumLevel" required>
+        <option selected>{{product.PremiumLevel}}</option>
+        <option value="Silver">Silver</option>
+        <option value="Gold">Gold</option>
+        <option value="Platinum">Platinum</option>
+      </select>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="number" id="form1Example1" class="form-control" name="stock" value="{{product.stock}}" required/>
+      <label class="form-label" for="form1Example1">Stock</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" id="form1Example1" class="form-control" name="description" value="{{product.description}}" required/>
+      <label class="form-label" for="form1Example1">Description</label>
+    </div>
+    <div class="form-outline mb-4">
+      <input type="text" id="form1Example1" class="form-control" name="aboutAuthor" value="{{product.aboutAuthor}}" required/>
+      <label class="form-label" for="form1Example1">About author</label>
+    </div>
+
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload Images</label>
+      <div>
+        <input class="form-control " type="file" id="formFile1" name="image1">
+
+      </div>
+      <div>
+        <input class="form-control " type="file" id="formFile2" name="image2">
+
+      </div>
+      <div>
+        <input class="form-control " type="file" id="formFile3" name="image3">
+
+      </div>
+      
+      <div class="row">
+        <img class="col-4" style="width:6rem ;" id="imageView1" src="/images/product-image/{{product._id}}1.jpg">
+        <img class="col-4" style="width:6rem ;" id="imageView2" src="/images/product-image/{{product._id}}2.jpg">
+        <img class="col-4" style="width:6rem ;" id="imageView3" src="/images/product-image/{{product._id}}3.jpg">
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block col-4 mx-auto">Update product</button>
+  </form>
+
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+
+<script>
+ formFile1.onchange = evt => {
+    const [file] = formFile1.files
+    if (file) {
+      imageView1.src = URL.createObjectURL(file)
+    }
+  }
+  formFile2.onchange = evt => {
+    const [file] = formFile2.files
+    if (file) {
+      imageView2.src = URL.createObjectURL(file)
+    }
+  }
+  formFile3.onchange = evt => {
+    const [file] = formFile3.files
+    if (file) {
+      imageView3.src = URL.createObjectURL(file)
+    }
+  }
+
+  function run() {
+
+    let alreadyExistingValue = document.getElementById('subcatagory').value
+    if (alreadyExistingValue) {
+      document.getElementById('subcatagory').value = null;
+      document.getElementById('subcatagory').innerHTML = null;
+    }
+    let id = document.getElementById('catagory').value
+    // Creating Our XMLHttpRequest object 
+    var xhr = new XMLHttpRequest();
+
+    // Making our connection  
+    var url = '/admin/show-subCatagory/' + id;
+    xhr.open("GET", url, true);
+
+    // function execute after request is successful 
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let data = JSON.parse(this.responseText)
+
+
+
+        $.each(data, function () {
+          $.each(this, function () {
+            console.log(this.subCatagory)
+
+            document.getElementById('subcatagory').innerHTML += `<option value="${this._id}" >${this.subCatagory}</option>`
+          });
+        });
+
+      }
+    }
+    // Sending our request 
+    xhr.send();
+  }
+
+
+
+
+</script>

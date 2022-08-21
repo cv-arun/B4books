@@ -1,0 +1,62 @@
+<div class="section">
+    <div class="container">
+        <div class="row full-height justify-content-center">
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                    <label for="reg-log"></label>
+                    <div class="card-3d-wrap mx-auto shadow">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front">
+                                <div class="center-wrap">
+                                    <div class="section text-center">
+                                        <h4 class="mb-4 pb-3" style="color: #fff;">Log In</h4>
+                                        {{#with session}}
+                                        {{#if invalid}}
+                                        <p>invalid password or username</p>
+                                        {{/if}}
+                                        {{/with}}
+                                        <form action="/admin/login" method="post">
+                                            <div class="form-group">
+                                                <input type="email" name="adminemail" class="form-style"
+                                                    placeholder="Your Email" id="logemail" autocomplete="off">
+
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input type="password" name="adminpassword" class="form-style"
+                                                    placeholder="Your Password" id="logpass" autocomplete="off">
+
+                                            </div>
+                                            <button type="submit" class="btn mt-4 ">submit</button>
+                                        </form>
+
+
+                                        <hr>
+                                        <h6 class="text-white">OR</h6>
+                                        {{#if session.wrongMobileNumber}}
+                                        <p>Incorrect mobile number</p>
+                                        {{/if}}
+
+                                        <form action="/admin/loginwithotp" method="post">
+
+                                            <div class="form-group mt-2">
+                                                <input type="text" name="adminnumber" class="form-style"
+                                                    placeholder="Enter Your mobile number" id="adminnumber"
+                                                    autocomplete="off">
+
+                                            </div>
+                                            <button type="submit" class="btn mt-4 btn-lg">Login with OTP</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/logincss.css">

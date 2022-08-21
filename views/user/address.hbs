@@ -1,0 +1,233 @@
+<h3 class="text-center mtop-15 mb-5">Your Address</h3>
+<div class="row ">
+    <div class="col-md-4 mx-auto  row">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn  vw-100 rounded" data-toggle="modal" data-target="#exampleModalLong"
+            style="border:2px;border-style: dotted;">
+            Add new Adress +
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <form class=" mx-auto mt-5 border  p-5" action="/add-adress" method="post" id="addAddress">
+                            <h1 class="text-center">Your Address</h1>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="fullname" />
+                                <label class="form-label" for="form1Example1">Full Name</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="mobile" />
+                                <label class="form-label" for="form1Example1">Mobile</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="line1" />
+                                <label class="form-label" for="form1Example1">Adress Line 1</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="line2" />
+                                <label class="form-label" for="form1Example1">Adress Line2</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="number" id="form1Example1" class="form-control" name="pincode" />
+                                <label class="form-label" for="form1Example1">Pincode</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="district" />
+                                <label class="form-label" for="form1Example1">District</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="state" />
+                                <label class="form-label" for="form1Example1">State</label>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block col-4 mx-auto">Add
+                                Address</button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#each adress}}
+
+    <div class="col-md-4 mb-5">
+
+
+        <div class="card mx-auto">
+            <div class="card-body border shadow rounded">
+
+                <hr>
+                <form>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">Full name</h6>
+                        </div>
+                        <p class="ml-3">{{this.fullname}}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">Mobile </h6>
+                        </div>
+                        <p class="ml-3">{{this.mobile}}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">Adress line1</h6>
+                        </div>
+                        <p class="ml-3">{{this.line1}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">Adress line2</h6>
+                        </div>
+                        <p class="ml-3">{{this.pincode}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">Pincode</h6>
+                        </div>
+                        <p class="ml-3">{{this.pincode}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">District</h6>
+                        </div>
+                        <p class="ml-3">{{this.district}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h6 class="mb-2">state</h6>
+                        </div>
+                        <p class="ml-3">{{this.state}}</p>
+                    </div>
+
+                </form>
+                <hr>
+                <button type="button" class="btn  rounded" data-toggle="modal"
+                    data-target="#ModalLong{{this._id}}">Edit</button>
+                <a class="btn rounded" href="/deleteAdress/{{this._id}}">Delete</a>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ModalLong{{this._id}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <form class=" mx-auto mt-5 border  p-5" action="/edit-adress/{{this._id}}" method="post">
+                            <h1 class="text-center">Edit Your Address</h1>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="fullname"
+                                    value="{{this.fullname}}" required/>
+                                <label class="form-label" for="form1Example1">Full Name</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="mobile"
+                                    value="{{this.mobile}}" required/>
+                                <label class="form-label" for="form1Example1">Mobile</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="line1"
+                                    value="{{this.line1}}" required/>
+                                <label class="form-label" for="form1Example1">Adress Line 1</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="line2"
+                                    value="{{this.line2}}" required/>
+                                <label class="form-label" for="form1Example1">Adress Line2</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="number" id="form1Example1" class="form-control" name="pincode"
+                                    value="{{this.pincode}}" required/>
+                                <label class="form-label" for="form1Example1">Pincode</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="district"
+                                    value="{{this.district}}" required/>
+                                <label class="form-label" for="form1Example1">District</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" id="form1Example1" class="form-control" name="state"
+                                    value="{{this.state}}" required/>
+                                <label class="form-label" for="form1Example1">State</label>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block col-4 mx-auto">Update</button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+
+</div>
+
+<script>
+      $(document).ready(function () {
+        $("#addAddress").validate({
+            rules: {
+                 fullname: {
+                    required: true,
+                    minlength:4
+                },
+                 mobile: {
+                    required: true,
+                  
+                },
+                line1: {
+                    required: true,
+                   
+                },
+                line2: {
+                    required: true,
+                   
+                },
+                pincode: {
+                    required: true,
+                    number: true
+                    
+                },
+                district: {
+                    required: true,
+                   
+                },
+                state: {
+                    required: true,
+                   
+                },
+               
+               
+            },
+
+
+
+            messages: {
+                plan: {
+                    required: "Please enter your fullname",
+                    minlength:"enter atleast four letters"
+                }
+
+            }
+
+        });
+    });
+</script>

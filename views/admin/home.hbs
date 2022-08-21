@@ -1,0 +1,309 @@
+{{!--
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+
+<link rel="stylesheet" href="/stylesheets/adminhome.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+        <div class="col ">
+            <div class="card radius-10 border-start border-0 border-3 border-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Total Orders</p>
+                            <h4 class="my-1 text-info" id="TotalOrder">4805</h4>
+                            <p class="pb-2 font-13"></p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
+                                class="fa fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-danger">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Total Revenue</p>
+                            <h4 class="my-1 text-danger" id="TotalRevenue">$84,245</h4>
+                            <p class="pb-2 font-13"></p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
+                                class="fa fa-dollar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Last week revenue</p>
+                            <h4 class="my-1 text-success" id="lastWeekRevenue">34.6%</h4>
+                            <p class="pb-2 font-13"></p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
+                                class="fa fa-bar-chart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-warning">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Total Customers</p>
+                            <h4 class="my-1 text-warning" id="TotalUsers">8.4K</h4>
+                            <p class="pb-2 font-13"></p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i
+                                class="fa fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5 mt-5">
+    <div class="col-md-6  shadow mx-auto rounded">
+        <h4 class="text-center">Daily revenue</h4>
+        <canvas class="p-3" id="myLineChart"></canvas>
+    </div>
+    <div class="col-md-5 mx-auto shadow rounded">
+        <canvas id="myChart" class="w-100 "></canvas>
+    </div>
+</div>
+<hr>
+<div class="row mt-5">
+    <div class="mx-auto  w-75 shadow">
+        <h4 class="text-center">Order/ return Summery</h4>
+        <canvas id="orderChart" style="height:300px"></canvas>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", charts)
+
+    //total orders
+
+
+
+
+
+    function charts() {
+
+
+
+
+
+        axios.get('/admin/orderCount').then((response) => {
+            document.getElementById('TotalOrder').innerHTML = response.data.orderCount
+        })
+
+        axios.get('/admin/userCount').then((response) => {
+            document.getElementById('TotalUsers').innerHTML = response.data.userCount
+        })
+
+        axios.get('/admin/revenue').then((response) => {
+            document.getElementById('TotalRevenue').innerHTML = response.data.revenue[0].income + "&#8377"
+            console.log(response.data.revenue)
+        })
+
+        axios.get('/admin/lastWeekRevenue').then((response) => {
+
+          let lastWeekRevenue=  response.data.lastWeekOrder.reduce((acc, curr) => {
+                acc += parseInt(curr.amount)
+                return acc
+            }, 0)
+            document.getElementById('lastWeekRevenue').innerHTML = lastWeekRevenue+ "&#8377"
+        })
+
+
+
+        var xValues = [];
+        var yValues = [];
+        axios.get('/admin/incomePerPlan').then((data) => {
+
+            data.data.incomeperplan.map((curr) => {
+                xValues.push(curr._id)
+                yValues.push(curr.income)
+
+            })
+            var barColors = [
+                "#b91d47",
+                "#00aba9",
+                "#2b5797",
+                "#e8c3b9",
+                "#1e7145"
+            ];
+
+            new Chart("myChart", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Plan wise income"
+                    }
+                }
+            });
+
+
+        })
+
+
+        axios.get('/admin/paymentChart').then((payments) => {
+
+            var result = [];
+            payments.data.payment.reduce(function (acc, curr) {
+                if (!acc[curr.createdAt.slice(0, 10)]) {
+                    acc[curr.createdAt.slice(0, 10)] = { date: curr.createdAt.slice(0, 10), amount: 0 };
+                    result.push(acc[curr.createdAt.slice(0, 10)])
+                }
+                acc[curr.createdAt.slice(0, 10)].amount += parseInt(curr.amount)
+
+                return acc
+            }, {});
+
+
+            var xValues = [];
+            var yValues = [];
+
+            result.map((curr) => {
+                xValues.unshift(curr.date)
+                yValues.unshift(parseInt(curr.amount))
+
+            })
+
+
+            new Chart("myLineChart", {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        fill: false,
+                        lineTension: 0,
+                        backgroundColor: "rgba(0,0,255,1.0)",
+                        borderColor: "green",
+                        data: yValues
+                    }
+                    ]
+                },
+                options: {
+                    legend: { display: false },
+                    scales: {
+                        yAxes: [{ ticks: { min: 1000, max: 20000 } }],
+                    }
+                }
+            });
+
+
+
+        })
+
+        axios.get('/admin/ordertChart').then((orders) => {
+
+
+
+            //request
+            var requests = [];
+            orders.data.request.reduce(function (acc, curr) {
+                if (!acc[curr.createdAt.slice(0, 10)]) {
+                    acc[curr.createdAt.slice(0, 10)] = { date: curr.createdAt.slice(0, 10), count: 0 };
+                    requests.push(acc[curr.createdAt.slice(0, 10)])
+                }
+                acc[curr.createdAt.slice(0, 10)].count += 1
+                return acc
+            }, {});
+            var reequestXValues = [];
+            var reequestYValues = [];
+            requests.map((curr) => {
+                reequestXValues.unshift(curr.date)
+                reequestYValues.unshift(parseInt(curr.count))
+            })
+
+            //orders
+            var order = [];
+            orders.data.orders.reduce(function (acc, curr) {
+                if (!acc[curr.createdAt.slice(0, 10)]) {
+                    acc[curr.createdAt.slice(0, 10)] = { date: curr.createdAt.slice(0, 10), count: 0 };
+                    order.push(acc[curr.createdAt.slice(0, 10)])
+                }
+                acc[curr.createdAt.slice(0, 10)].count += 1
+                return acc
+            }, {});
+
+            var xValues = [];
+            var yValues = [];
+
+            order.map((curr) => {
+                xValues.unshift(curr.date)
+                yValues.unshift(parseInt(curr.count))
+
+            })
+
+            new Chart("orderChart", {
+                type: "line",
+
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: ' Orders',
+                        fill: false,
+                        lineTension: 0,
+                        backgroundColor: "red",
+                        borderColor: "red",
+                        data: yValues
+                    },
+                    {
+                        label: ' return request',
+                        fill: false,
+                        lineTension: 0,
+                        backgroundColor: "blue",
+                        borderColor: "blue",
+                        data: reequestYValues
+                    }
+                    ]
+                },
+                options: {
+                    legend: { display: true },
+                    scales: {
+                        yAxes: [{ ticks: { min: 0, max: 50 } }],
+                    }
+                }
+            });
+
+        })
+
+    }
+
+
+
+
+
+</script>

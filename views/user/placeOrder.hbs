@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="/stylesheets/viewUser.css">
+
+
+<div></div>
+<div class="container-fluid" style="margin-top:12rem ;">
+    <div class="main-body">
+        <div class="row gutters-sm">
+
+            <div class="col-md-4 mb-3">
+                <div class="card mb-3">
+                    <a href="/userAddress">
+                        <div class="card-body border border-primary shadow">
+                            + address
+                        </div>
+                    </a>
+                </div>
+                <form action="/placeOrder" method="post" id="order">
+
+                    {{#each adress}}
+
+                    {{#unless this._id}}
+                    <p>Please add an adress</p>
+                    {{/unless}}
+                    <label class="w-100 shadow">
+                        <div class="card mb-1">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2 col-md-1 row">
+
+                                        <input class="form-check-input mt-2 ml-2 " type="radio" value="{{this._id}}"
+                                            name="addressId" id="input{{this._id}}" checked>
+
+                                    </div>
+                                    <div class="col-10 col-md-11">
+                                        <h3>{{this.fullname}}</h3>
+                                        <span>{{this.mobile}}</span>
+                                        <div class="d-flex">
+                                            <span>{{this.line1}},</span>
+                                            <span>{{this.line2}},</span>
+                                            <span>{{this.pincode}},</span>
+                                            <span>{{this.district}},</span>
+                                            <span>{{this.state}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    {{/each}}
+                </form>
+
+            </div>
+            <div class="col-md-1"></div>
+            <div class="row mb-2 position-relative d-md-none">
+                <div class="d-flex-reverse justify-content-between mt-5">
+
+                    <button type="submit" class="btn btn-primary " form="order">Place order</button>
+                </div>
+            </div>
+            <div class="col-md-7">
+
+                <div class="row " style="height:30%">
+
+                    {{#each cart.cartItems}}
+                    <div class="card mb-1 col-md-2 shadow h-100 ">
+
+                        <div class="card-body h-100">
+                            <img class="img-fluid mx-auto d-block image h-100"
+                                src="/images/product-image/{{this._id}}1.jpg">
+
+                        </div>
+
+                    </div>
+
+
+                    {{/each}}
+
+                </div>
+
+                {{#if cart.cartItems}}
+                <div class="row mb-2 position-relative d-none d-md-block">
+                    <div class="d-flex-reverse justify-content-between mt-5">
+
+                        <button type="submit" class="btn btn-primary " form="order">Place order</button>
+                    </div>
+                </div>
+                {{/if}}
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

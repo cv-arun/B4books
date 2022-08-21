@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="/stylesheets/cart.css">
+<main class="page mtop-15" id="cart-main">
+    <section class="shopping-cart dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2>Wishlist</h2>
+
+            </div>
+            <div class="content">
+
+                <div class="row">
+
+
+                    <div class="col-md-12 col-lg-8 mx-auto">
+                        {{#each response.wishlist}}
+                        <div onmousemove="Starfunction('{{this._id}}',{{this.rating}})" id="remove{{this._id}}"
+                            class="items border border-primary p-4">
+                            <div class="product ">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img class="img-fluid mx-auto d-block image"
+                                            src="/images/product-image/{{this._id}}1.jpg">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="col-md-5 product-name">
+                                                    <div class="product-name">
+                                                        <a>{{this.title}}</a>
+                                                        <div class="product-info">
+                                                            <div>Author <span class="value">{{this.author}}</span></div>
+                                                            <div>Publisher <span
+                                                                    class="value">{{this.publication}}</span></div>
+                                                            <div>Rating<span id="{{this._id}}" class="value"></span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+
+                            <div class="d-flex flex-row-reverse">
+                                
+                                <p id="{{this._id}}2"></p><a class="btn btn-primary "
+                                    onclick="addToCart('{{this._id}}')">Add to Cart</a>
+                                    <span><i id="wish{{this._id}}" onclick="wish('{{this._id}}');remove('{{this._id}}')"
+                                    class="bi bi-heart-fill mr-5" style="font-size:2rem;color: red;"></i></span>
+
+                            </div>
+                          
+
+                        </div>
+                        {{/each}}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', count)
+
+    function Starfunction(id, rating) {
+
+
+        document.getElementById(id).innerHTML = null
+
+
+
+        for (let i = 1; i <= rating; i++) {
+            document.getElementById(id).innerHTML += "&#11088;"
+        }
+
+    }
+
+    function remove(id) {
+        document.getElementById('remove'+id).style.display = "none"
+    }
+
+
+
+</script>
+

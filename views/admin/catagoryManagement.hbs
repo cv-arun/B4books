@@ -1,0 +1,174 @@
+<style>
+    .w100 {
+        width: 100%;
+    }
+</style>
+
+
+<div class="row " style="margin-top:10rem;">
+    <div class="accordion col-md-5" id="accordionExample">
+        <h1>Catagory & subcatagory</h1>
+        <p style="color:red;text-align:center; ;">{{updateErr}}</p>
+        {{#each data}}
+        <div class="row">
+            <div class="accordion-item col-10">
+                <h2 class="accordion-header" id="headingTwo{{this._id}}">
+
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo{{this._id}}" aria-expanded="false" aria-controls="collapseTwo"
+                        onclick="showSubcatagory('{{this._id}}')">
+
+                        <form action="/admin/editCatogory/{{this._id}}" method="post" id="form{{this._id}}">
+                            <input id="catagory{{this._id}}" class="pointer" value="{{this.catagory}}"
+                                style="border: none; pointer-events: none;" name="catagory">
+
+                        </form>
+
+
+                    </button>
+                </h2>
+
+                <div id="collapseTwo{{this._id}}" class="accordion-collapse collapse w100"
+                    aria-labelledby="headingTwo{{this._id}}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body" id="{{this._id}}subcatagory">
+
+
+                    </div>
+                </div>
+            </div>
+
+            <a class="col-2 " id="showPointer{{this._id}}" onclick="showPointer('{{this._id}}')"><i
+                    class="bi bi-pencil-square"></i></a>
+            <button class="col-2 btn  " id="editCatogory{{this._id}}" onclick="editCatagory('{{this._id}}')"
+                style="display: none;" type="submit" form="form{{this._id}}">Update</button>
+
+
+        </div>
+        {{/each}}
+    </div>
+    <div class="col-md-5 mx-auto">
+        <h3>Add new Catagory/subcatagory</h3>
+        <form action="/admin/add-catagory" method="post" class="row border border-primary rounded mt-5" id="addCatagory">
+            {{#if AddErr}}
+            <p style="color:red;text-align:center;">{{AddErr}}</p>
+            {{/if}}
+            <div class="form-group col-10 ">
+                <label for="exampleInputEmail1">Add new catagory</label>
+                <input name="catagory" type="text" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp" placeholder="Enter new catagory">
+
+            </div>
+            <button type="submit" class="btn btn-primary col-2">Submit</button>
+        </form>
+        <form action="/admin/add-subcatagory" method="post" class="row border border-primary rounded mt-5" id="addSubcatagory">
+            <div class="form-group col-5">
+                <label for="exampleInputEmail2">add-subcatagory</label>
+                <input name="subCatagory" type="text" class="form-control" id="exampleInputEmail2"
+                    aria-describedby="emailHelp" placeholder="Enter new sub catagory">
+            </div>
+            <div class="form-group col-5">
+                <label for="exampleInputEmail1">select catagory</label>
+                <select name="Catagory" class="form-control">
+                    <option></option>
+                    {{#each data}}
+                    <option value="{{this._id}}">{{this.catagory}}</option>
+                    {{/each}}
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary col-2">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    
+    $(document).ready(function () {
+        $("#addCatagory").validate({
+            rules: {
+                catagory: {
+                    required: true
+                },
+            },
+            messages: {
+                catagory: {
+                    required: "Please add catagory",
+                }
+
+            }
+
+        });
+
+         $("#addSubcatagory").validate({
+            rules: {
+                subCatagory: {
+                    required: true
+                },
+                Catagory: {
+                    required: true
+                },
+            },
+            messages: {
+                catagory: {
+                    required: "Please choose catagory",
+                },
+                subCatagory: {
+                    required: "Please add subcatagory",
+                }
+
+            }
+
+        });
+    });
+
+
+
+    function showSubcatagory(id) {
+
+
+
+        document.getElementById(id + 'subcatagory').innerHTML = null;
+
+
+        // Creating Our XMLHttpRequest object 
+        var xhr = new XMLHttpRequest();
+
+        // Making our connection  
+        var url = '/admin/show-subCatagory/' + id;
+        xhr.open("GET", url, true);
+
+        document.getElementById(id + 'subcatagory').innerHTML = '<p>subcatagories</p><hr>'
+        // function execute after request is successful 
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let data = JSON.parse(this.responseText)
+
+
+
+                $.each(data, function () {
+                    $.each(this, function () {
+                        console.log(this.subCatagory)
+
+                        document.getElementById(id + 'subcatagory').innerHTML += `<span style="color:green">${this.subCatagory}</span><br>`
+                    });
+                });
+
+            }
+        }
+        // Sending our request 
+        xhr.send();
+    }
+
+    function showPointer(id) {
+        document.getElementById('catagory' + id).style.pointerEvents = 'visible';
+        document.getElementById('catagory' + id).style.border = 'dotted';
+
+        document.getElementById('showPointer' + id).style.display = 'none';
+        document.getElementById('editCatogory' + id).style.display = 'block';
+
+    }
+</script>

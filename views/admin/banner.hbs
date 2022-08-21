@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="/stylesheets/form.css">
+<div class="mt-5" style="position: absolute;">
+
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary mt-5 ml-5" data-toggle="modal" data-target="#exampleModal">
+        Add Banner
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+
+
+
+                    <div class="registration-form">
+                        <form action="/admin/addbanner" method="post" enctype="multipart/form-data" id="addbanner">
+                            <div class="form-group">
+                                <input type="text" class="form-control item" id="bannername"
+                                    placeholder="enter a name for file" value="banner" name="banner">
+                            </div>
+                            <div class="form-group">
+                                <input type="file" class="form-control item" id="bannerimage" name="image">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block create-account">upload image</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row container-fluid">
+
+        <table class="table table-hover " style="width: 90vw">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">name</th>
+                    <th scope="col">image</th>
+                    <th scope="col">delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {{#each banner}}
+                <tr>
+                    <th class="align-middle" scope="row">{{inc1 @index}}</th>
+                    <td class="align-middle">{{this.banner}}</td>
+                    <td class="align-middle"><img style="max-width: 15rem;" src='/images/banner-image/{{this._id}}.jpg'
+                            alt=""></td>
+                    <td class="align-middle"><a href="/admin/deleteBanner/{{this._id}}"><i class="bi bi-trash3"></i></a>
+                    </td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#addbanner").validate({
+            rules: {
+                image: {
+                    required: true
+                },
+                banner: {
+                    required: true
+                },
+            },
+
+
+
+            messages: {
+                image: {
+                    required: "Please add an image",
+                }
+
+            }
+
+        });
+    });
+
+</script>

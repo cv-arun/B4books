@@ -1,0 +1,153 @@
+<section style="margin-top: 6rem;">
+    <h1 class="text-center">All Orders</h1>
+    <a class="btn btn-primary" href="/admin/return">Return Request</a>
+    <table class="table table-hover border" id="orderDataTable">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th scope="col">Product image</th>
+                <th scope="col">Email</th>
+                <th scope="col">shiping status</th>
+                <th scope="col">process</th>
+                <th scope="col">More</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orders}}
+            <tr>
+                <th class="align-middle" scope="row">{{inc1 @index}}</th>
+                <td class="align-middle" style="width: 4rem;height:4rem ;">
+                    {{#each this.items}}
+                    {{#if @first}}
+                    <img src="/images/product-image/{{this._id}}1.jpg" alt="image" style="max-width: 100%;">
+                    {{/if}}
+                    {{/each}}
+                </td>
+
+                <td class="align-middle">{{this.userid.logemail}}</td>
+                <td class="align-middle">{{#if this.delivered}}
+                    <p class="text text-success">delivered</p>
+                    {{else}}
+                    {{#if this.shipped}}
+                    <p class="text text-success">shiped</p>
+                    {{else}}
+                    <p id="pending{{this._id}}" style="color: red">Pending</p>
+                    {{/if}}
+                    {{/if}}
+
+                </td>
+
+                <td class="align-middle">
+                    {{#unless this.shipped}}
+                    <button type="button" class="btn border border-info" data-toggle="modal" id="shipedbtn{{this._id}}"
+                        data-target="#myModal2{{this._id}}">
+                        ship product
+                    </button>
+                    <button type="button" class="btn border border-info" data-toggle="modal" style="display:none;"
+                        id="delivered{{this._id}}" data-target="#myModal{{this._id}}">
+                        delivered
+                    </button>
+                    {{else}}
+                    {{#unless this.delivered}}
+                    <button type="button" class="btn border border-info" data-toggle="modal" style="display:block;"
+                        id="delivered{{this._id}}" data-target="#myModal{{this._id}}">
+                        delivered
+                    </button>
+                    {{/unless}}
+                    {{/unless}}
+
+
+
+                </td>
+
+                <td class="align-middle"><a class="btn btn-info">view more</a>
+                </td>
+
+
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal{{this._id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Are you sure this product is delivered
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button onclick="delivered('{{this._id}}')" class="btn btn-success"
+                                    data-dismiss="modal">Confirm</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal" id="myModal2{{this._id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Are you sure this product is shiped
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button onclick="shiped('{{this._id}}')" class="btn btn-success"
+                                    data-dismiss="modal">Confirm</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+
+
+
+    </div>
+</section>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+
+<script>
+    $(document).ready(function () {
+        $('#orderDataTable').DataTable();
+    });
+
+    function delivered(id) {
+        axios.get('/admin/delivered/' + id).then((response) => {
+            if (response.status == 200) {
+
+                document.getElementById('pending' + id).innerHTML = 'delivered'
+                document.getElementById('pending' + id).style.color = 'green'
+                document.getElementById('delivered' + id).style.display = 'none'
+
+                console.log(response)
+            }
+
+        })
+    }
+
+    function shiped(id) {
+        axios.get('/admin/shiped/' + id).then((response) => {
+            if (response.status == 200) {
+
+                document.getElementById('pending' + id).innerHTML = 'shiped'
+                document.getElementById('pending' + id).style.color = 'green'
+                document.getElementById('shipedbtn' + id).style.display = 'none'
+                document.getElementById('delivered' + id).style.display = 'block'
+
+                console.log(response)
+            }
+
+        })
+    }
+</script>

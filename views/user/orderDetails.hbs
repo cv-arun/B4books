@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/stylesheets/viewUser.css">
+<div class="container mtop-15">
+
+
+    {{#each order}}
+    <div class="card mb-3">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-8">order placed<br><span>{{format createdAt}}</span></div>
+                <div class="col-4">
+                    {{#if shipped}}
+
+                    {{#if delivered}}
+                    <p class="text-success">delivered</p>
+                    {{else}}
+                    <p class="text-success">shiped</p>
+                    {{/if}}
+                    {{else}}
+                    <p>Order Placed</p>
+                    {{/if}}
+                </div>
+
+            </div>
+            <hr>
+            <div class="accordion accordion-flush" id="accordionFlushExample{{this._id}}">
+                <div class="accordion-item">
+
+                    <h2 class="accordion-header" id="flush-headingOne{{this._id}}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne{{this._id}}" aria-expanded="false"
+                            aria-controls="flush-collapseOne{{this._id}}">
+                            Delivery Address
+                        </button>
+                    </h2>
+                    <hr>
+                    <div id="flush-collapseOne{{this._id}}" class="accordion-collapse collapse"
+                        aria-labelledby="flush-headingOne{{this._id}}" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <h3>{{this.adress.fullname}}</h3>
+                            <span>{{this.adress.mobile}}</span>
+                            <div class="d-flex">
+                                <span>{{this.adress.line1}},</span>
+                                <span>{{this.adress.line2}},</span>
+                                <span>{{this.adress.pincode}},</span>
+                                <span>{{this.adress.district}},</span>
+                                <span>{{this.adress.state}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                {{#each this.product }}
+                <div class="col-sm-6 col-md-2">
+                    <a class="row w-100 mx-auto" style="aspect-ratio: .9;" href="/productDetails/{{this._id}}">
+                        <img class="w-100 h-100 img-fluid " src="/images/product-image/{{this._id}}1.jpg" alt="">
+                    </a>
+                    <div class="mx-auto text-center">
+                        {{this.title}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+</div>
+<link rel="stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css ">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
