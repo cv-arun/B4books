@@ -14,7 +14,8 @@ var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 
 var app = express();
-const mongoURI = `mongodb+srv://b4books:${process.env.mongo_password}@b4books.ymxybhu.mongodb.net/?retryWrites=true&w=majority`;
+const mongoURI = `mongodb+srv://b4books:${process.env.mongo_password}@b4books.ymxybhu.mongodb.net/B4BOOKS`;
+
 mongoose.connect(mongoURI).then((res) => {
   console.log("mongodb connected")
 })
