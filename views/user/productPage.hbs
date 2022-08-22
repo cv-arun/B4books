@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/stylesheets/viewUser.css">
 
 
-<div class="container mtop-15">
+<div class="container mtop-15" onmouseover="myfunction('{{this._id}}')">
     <div class="main-body">
 
         <div class="row gutters-sm">
@@ -63,12 +63,17 @@
                                 <div class="col-sm-3">
                                     <h6 class="mb-md-5 mb-2">Rating</h6>
                                 </div>
-                                <span class=" ml-3">{{star this.rating}}</span>
+                                <span class=" ml-3">{{star product.rating}}</span>
+                                
                             </div>
-                            <div class="col-3">
-                                <p class="text-center mt-2" id="{{product._id}}2"></p>
-                                <button class="btn btn-primary" onclick="addToCart('{{product._id}}')">Add to
-                                    cart</button>
+                            
+                            <div class="d-flex flex-row-reverse">
+                                
+                                <p id="{{this._id}}2"></p><a class="btn btn-primary "
+                                    onclick="addToCart('{{product._id}}')">Add to Cart</a>
+                                    <span><i id="wish{{product._id}}" onclick="wish('{{product._id}}')"
+                                    class="bi bi-heart-fill mr-5" style="font-size:2rem;color: red;"></i></span>
+
                             </div>
 
                         </div>
@@ -100,7 +105,9 @@
     </div>
 </div>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+    integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     function showAuth() {
         document.getElementById('author').style.display = 'block'
@@ -116,5 +123,5 @@
         document.getElementById('descriptionTitle').style.display = 'block'
 
     }
-    document.addEventListener('DOMContentLoaded', myfunction('{{product._id}}', {{ product.rating }}))
+  
 </script>

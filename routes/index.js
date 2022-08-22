@@ -394,6 +394,7 @@ router.get('/wish', verified, function (req, res, next) {
 })
 
 router.get('/isInWishlist/:id', verified, function (req, res, next) {
+ 
   userhelper.isInWishlist(req.params.id, req.session.user._id).then((response) => {
 
     res.json({ response })
