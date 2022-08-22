@@ -65,6 +65,8 @@ router.get('/login', function (req, res, next) {
   req.session.invalid = null;
   req.session.alreadyregistered = null
   req.session.register = null
+  req.session.userMobileNotFound= null
+  
   if (!req.session.userlogedin) {
     res.render('user/Login', { userlog });
   } else {
@@ -154,7 +156,7 @@ router.post('/loginwithotp', function (req, res, next) {
         res.render('user/otpvalidation', { user })
       })
     } else {
-      req.session.userlog.userMobileNotFound = true;
+      req.session.userMobileNotFound = true;
       res.redirect('/login')
     }
   }).catch((err) => {

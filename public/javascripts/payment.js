@@ -6,7 +6,7 @@ function payment(jsonString) {
         "key": "rzp_test_Zm4jovmYwfus4h", // Enter the Key ID generated from the Dashboard
         "amount": `${order.amount}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
-        "name": "Acme Corp",
+        "name": "B4BOOKS",
         "description": "Test Transaction",
         "image": "https://example.com/your_logo",
         "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -22,12 +22,12 @@ function payment(jsonString) {
             checkPayment(response, order)
         },
         "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
+            "name": "Your name",
+            "email": "your_email@example.com",
             "contact": "9999999999"
         },
         "notes": {
-            "address": "Razorpay Corporate Office"
+            "address": "B4books calicut "
         },
         "theme": {
             "color": "#3399cc"

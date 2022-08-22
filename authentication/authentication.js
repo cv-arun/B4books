@@ -17,7 +17,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let { otp, logname, logemail, lognumber, logpassword, confirmpassword } = userData
             logemail = logemail.toLowerCase()
-          
+
             logpassword = await bcrypt.hash(logpassword, 10)
             user = new usermodel({
                 logname,
@@ -26,14 +26,14 @@ module.exports = {
                 logpassword
             })
 
-           
+
             user.save().then((data) => {
                 console.log(data)
                 resolve(data)
             }).catch((err) => {
                 console.log(err)
             })
-           
+
         })
     }
 
@@ -89,17 +89,21 @@ module.exports = {
         })
     },
     mobileexist: (lognumber) => {
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             const response = {}
-            let user = await usermodel.findOne({ lognumber })
-            if (user) {
-                response.user = user;
-                response.userfound = true;
-                resolve(response)
-            } else {
-                response.userfound = false;
-                resolve(response)
-            }
+           
+            usermodel.findOne({ lognumber }).then((user) => {
+                console.log(user+"user")
+                if (user) {
+                    response.user = user;
+                    response.userfound = true;
+                    resolve(response)
+                } else {
+                    response.userfound = false;
+                    resolve(response)
+                }
+            }).catch((err) => { reject(err) })
+
         })
 
     }
