@@ -197,7 +197,7 @@ router.post('/updateProduct/:id', verify, function (req, res, next) {
 router.get('/prodectDetails/:id', verify, function (req, res, next) {
   producthelper.showProduct(req.params.id).then((product) => {
     res.render('admin/singleProduct', { admin: true, product })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { next(err) })
 })
 
 

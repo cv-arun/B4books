@@ -17,7 +17,7 @@ const verified = (req, res, next) => {
     }
 
   } else {
-    console.log("No session")
+
 
     res.redirect('/login')
   }
@@ -65,7 +65,7 @@ router.get('/login', function (req, res, next) {
   req.session.invalid = null;
   req.session.alreadyregistered = null
   req.session.register = null
-  req.session.userMobileNotFound= null
+  req.session.userMobileNotFound = null
 
   if (!req.session.userlogedin) {
     res.render('user/Login', { userlog });
@@ -245,7 +245,7 @@ router.get('/cart-count', verified, function (req, res, next) {
 router.get('/membership', verified, function (req, res, next) {
   adminhelper.showMembershipPlans().then(async (membershipPlans) => {
     let user = await userhelper.showUser(req.session.user._id)
-
+    req.session.user = user
     let time = req.session.user.planend
     res.render('user/membershipPlan', { userhead: true, user, membershipPlans, time })
   }).catch((err) => {
@@ -255,8 +255,8 @@ router.get('/membership', verified, function (req, res, next) {
 
 router.get('/choosePlan/:planId', verified, function (req, res, next) {
   userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership)
-  .then((order) => {
-    console.log(order)
+    .then((order) => {
+      console.log(order)
       res.render('user/paymentPage', { order })
     }).catch((err) => {
       next(err)
