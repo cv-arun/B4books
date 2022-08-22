@@ -35,6 +35,7 @@ router.get('/', function (req, res, next) {
       const remaining = endtime - Date.parse(new Date());
       let time = remaining / (1000 * 60 * 60 * 24)
       req.session.user.planend = time.toFixed(0)
+      console.log(time.toFixed(0))
     })
 
   }
@@ -245,8 +246,8 @@ router.get('/cart-count', verified, function (req, res, next) {
 router.get('/membership', verified, function (req, res, next) {
   adminhelper.showMembershipPlans().then(async (membershipPlans) => {
     let user = await userhelper.showUser(req.session.user._id)
-    req.session.user = user
     let time = req.session.user.planend
+    req.session.user = user
     res.render('user/membershipPlan', { userhead: true, user, membershipPlans, time })
   }).catch((err) => {
     next(err)

@@ -249,7 +249,7 @@ function myfunction(id) {
 
 
 function wish(id) {
-	console.log(id);
+
 	axios.get('/wishlist/' + id).then((response) => {
 		if (response.status == 200) {
 			if (response.data.response) {

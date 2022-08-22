@@ -15,10 +15,12 @@
                     </a>
                 </div>
                 <form action="/placeOrder" method="post" id="order">
-
+                    {{#unless adress}}
+                    <p onload="trial()">Please add an adress</p>
+                    {{/unless}}
                     {{#each adress}}
 
-                    {{#unless this._id}}
+                    {{#unless adress}}
                     <p>Please add an adress</p>
                     {{/unless}}
                     <label class="w-100 shadow">
@@ -92,3 +94,10 @@
 
     </div>
 </div>
+
+
+<script>
+    function trial(){
+    alert("hello")
+}
+</script>
