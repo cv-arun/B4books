@@ -11,6 +11,16 @@ const adminhelper = require('../helpers/adminhelper');
 const verified = (req, res, next) => {
   if (req.session.userlogedin) {
     if (req.session.user.status) {
+      let user = req.session.user
+      if (user && user.membership) {
+        userhelper.showUser(req.session.user._id).then((user) => {
+          req.session.user = user
+          let endtime = Date.parse(user.membershipdate) + 1000 * 60 * 60 * 24 * 30 * parseInt(user.membership.planDuration)
+          const remaining = endtime - Date.parse(new Date());
+          let time = remaining / (1000 * 60 * 60 * 24)
+          req.session.user.planend = time.toFixed(0)
+        })
+      }
       next()
     } else {
       res.redirect('/login')
@@ -27,18 +37,6 @@ const verified = (req, res, next) => {
 /* GET home page. */
 router.get('/', function (req, res, next) {
   let user = req.session.user
-
-  if (user && user.membership) {
-    userhelper.showUser(req.session.user._id).then((user) => {
-      req.session.user = user
-      let endtime = Date.parse(user.membershipdate) + 1000 * 60 * 60 * 24 * 30 * parseInt(user.membership.planDuration)
-      const remaining = endtime - Date.parse(new Date());
-      let time = remaining / (1000 * 60 * 60 * 24)
-      req.session.user.planend = time.toFixed(0)
-      console.log(time.toFixed(0))
-    })
-
-  }
 
   producthelper.showAllProduct().then(async (product) => {
     let banner = await userhelper.showbanner()
@@ -395,7 +393,7 @@ router.get('/wish', verified, function (req, res, next) {
 })
 
 router.get('/isInWishlist/:id', verified, function (req, res, next) {
- 
+
   userhelper.isInWishlist(req.params.id, req.session.user._id).then((response) => {
 
     res.json({ response })
