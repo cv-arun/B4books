@@ -7,7 +7,7 @@ function payment(jsonString) {
         "amount": `${order.amount}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "B4BOOKS",
-        "description": "Test Transaction",
+        "description": "Test",
         "image": "https://example.com/your_logo",
         "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response) {

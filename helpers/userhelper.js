@@ -157,7 +157,7 @@ const userhelper = {
 
         })
     },
-    choosePlan: (userId, planId, renewal,membershipName) => {
+    choosePlan: (userId, planId, renewal) => {
         return new Promise(async (resolve, reject) => {
 
             let amount;
@@ -171,7 +171,7 @@ const userhelper = {
                     userid: userId,
                     amount: amount,
                     membership: planId,
-                    membershipName:membershipName
+                    membershipName:plan.plan
 
                 })
 

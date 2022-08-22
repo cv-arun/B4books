@@ -66,7 +66,7 @@ router.get('/login', function (req, res, next) {
   req.session.alreadyregistered = null
   req.session.register = null
   req.session.userMobileNotFound= null
-  
+
   if (!req.session.userlogedin) {
     res.render('user/Login', { userlog });
   } else {
@@ -254,7 +254,7 @@ router.get('/membership', verified, function (req, res, next) {
 })
 
 router.get('/choosePlan/:planId', verified, function (req, res, next) {
-  userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership, req.session.user.membership.plan)
+  userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership)
   .then((order) => {
     console.log(order)
       res.render('user/paymentPage', { order })
