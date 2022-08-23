@@ -82,6 +82,7 @@ router.post('/usersignup', function (req, res, next) {
       req.session.alreadyregistered = true
       res.redirect('/register')
     } else {
+      console.log("new user")
       otpverify.getotp(req.body.lognumber).then((response) => {
         console.log('otp send');
         res.render('user/otpvalidation', { user })

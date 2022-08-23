@@ -16,7 +16,8 @@ module.exports={
        
         number='+91'+number
         
-
+        console.log('otp'+number);
+              
         return new Promise((resolve,reject)=>{
             client.verify.v2.services(config.serviceID)
             .verifications

@@ -77,6 +77,7 @@ module.exports = {
             let { logname, logemail, lognumber, logpassword } = userdata
             const response = {}
             let user = await usermodel.findOne({ logemail })
+            console.log("user"+user) 
             if (user) {
                 response.alreadyregistered = true;
                 resolve(response)
