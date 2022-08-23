@@ -13,8 +13,7 @@
 
                     <div class="col-md-12 col-lg-8 mx-auto">
                         {{#each response.wishlist}}
-                        <div  id="remove{{this._id}}"
-                            class="items border border-primary p-4">
+                        <div id="remove{{this._id}}" class="items border border-primary p-4">
                             <div class="product ">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -31,32 +30,51 @@
                                                             <div>Author <span class="value">{{this.author}}</span></div>
                                                             <div>Publisher <span
                                                                     class="value">{{this.publication}}</span></div>
-                                                            <div>Rating<span id="{{this._id}}" class="value">{{star this.rating}}</span>
+                                                            <div>Rating<span id="{{this._id}}" class="value">{{star
+                                                                    this.rating}}</span>
                                                             </div>
 
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            
+
 
                             <div class="d-flex flex-row-reverse">
-                                
+
                                 <p id="{{this._id}}2"></p><a class="btn btn-primary "
                                     onclick="addToCart('{{this._id}}')">Add to Cart</a>
-                                    <span><i id="wish{{this._id}}" onclick="wish('{{this._id}}');remove('{{this._id}}')"
-                                    class="bi bi-heart-fill mr-5" style="font-size:2rem;color: red;"></i></span>
-
+                                <span><i id="wish{{this._id}}" data-toggle="modal"
+                                        data-target="#exampleModal{{this._id}}" class="bi bi-heart-fill mr-5"
+                                        style="font-size:2rem;color: red;"></i></span>
                             </div>
-                          
 
+
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-body">
+                                            Are you sure you want to remove <span class="text-primary">{{this.title}}</span> from wish list
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" onclick="wish('{{this._id}}');remove('{{this._id}}')"
+                                                class="btn btn-danger">Confirm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         {{/each}}
                     </div>
@@ -74,9 +92,8 @@
 
     document.addEventListener('DOMContentLoaded', count)
 
-  
+
 
 
 
 </script>
-
