@@ -17,12 +17,12 @@ const returnmodel = require('../model/retuenRequest')
 const wishmodel = require('../model/wishlist')
 const Razorpay = require('razorpay');
 const crypto = require("crypto");
-const  env=require('dotenv').config();
+const env = require('dotenv').config();
 
 var instance = new Razorpay({
-   
+
     key_id: process.env.razor_pay_key_id,
-    key_secret:process.env.razor_pay_key_secret
+    key_secret: process.env.razor_pay_key_secret
 });
 
 const userhelper = {
@@ -47,7 +47,7 @@ const userhelper = {
                     console.log("duplicate")
 
                 } else {
-                    cartmodel.updateOne({ userid: userId }, { $push: { cartItems: { "$each":[ProductId ], "$position": 0 }} }).then((data) => {
+                    cartmodel.updateOne({ userid: userId }, { $push: { cartItems: { "$each": [ProductId], "$position": 0 } } }).then((data) => {
 
                         resolve(data)
                     }).catch((err) => {
@@ -76,13 +76,13 @@ const userhelper = {
     },
     showCartProducts: (userId) => {
         return new Promise(async (resolve, reject) => {
-        
-           try{
-            let cartProduct = await cartmodel.findOne({ userid: userId }).populate('cartItems').lean()
-            resolve(cartProduct)
-           }catch(err){
-            reject(err)
-           }
+
+            try {
+                let cartProduct = await cartmodel.findOne({ userid: userId }).populate('cartItems').lean()
+                resolve(cartProduct)
+            } catch (err) {
+                reject(err)
+            }
         })
     },
     deleteFromCart: (userId, productId) => {
@@ -128,7 +128,7 @@ const userhelper = {
         userobjectId = mongoose.Types.ObjectId(userId)
 
         return new Promise(async (resolve, reject) => {
-        
+
 
             let user = await usermodel.findById(userId)
 
@@ -153,34 +153,41 @@ const userhelper = {
                 }
                 resolve(response)
             }
-          
+
 
         })
     },
-    choosePlan: (userId, planId, renewal) => {
+    choosePlan: (userId, planId, renew, upgrade) => {
         return new Promise(async (resolve, reject) => {
 
             let amount;
             adminhelper.showMembershipPlan(planId).then((plan) => {
-                if (!renewal) {
-                    amount = parseInt(plan.membershipFee) + parseInt(plan.cautionDeposit) + parseInt(plan.registrationFee)
-                } else {
+                if (renew) {
+                    if (parseInt(plan.membershipFee) > parseInt(renew.membershipFee)) {
+                        amount = parseInt(plan.membershipFee) - parseInt(renew.membershipFee)
+                    }else{
+                        amount=0
+                    }
+
+                } else if (upgrade) {
                     amount = parseInt(plan.membershipFee)
+                } else {
+                    amount = parseInt(plan.membershipFee) + parseInt(plan.cautionDeposit) + parseInt(plan.registrationFee)
                 }
                 let newPayment = new paymentmodel({
                     userid: userId,
                     amount: amount,
                     membership: planId,
-                    membershipName:plan.plan
+                    membershipName: plan.plan
 
                 })
 
                 newPayment.save().then((orderDetails) => {
                     orderDetails.amount = parseInt(orderDetails.amount) * 100  //converting to paisa
-                    
+
                     generateRazorpay(orderDetails).then((order) => {
                         resolve(order)
-                    }).catch((err) => {reject(err)});
+                    }).catch((err) => { reject(err) });
 
                 })
             })
@@ -351,7 +358,7 @@ const userhelper = {
     },
     showOrder: (userId) => {
         return new Promise((resolve, reject) => {
-            ordermodel.find({ userid: userId }).sort({createdAt: -1}).populate('product').populate('adress').lean().then((orders) => {
+            ordermodel.find({ userid: userId }).sort({ createdAt: -1 }).populate('product').populate('adress').lean().then((orders) => {
                 resolve(orders)
             })
         })
@@ -464,12 +471,12 @@ const userhelper = {
     ,
     wishCount: (userId) => {
         return new Promise(async (resolve, reject) => {
-            
+
             wishmodel.findOne({ userid: userId }).then((wishlist) => {
                 let wishcount = 0;
                 if (wishlist) {
                     wishcount = wishlist.wishlist.length
-                    console.log(wishcount,wishlist)
+                    console.log(wishcount, wishlist)
                 }
                 resolve(wishcount)
             }).catch((err) => { reject(err) })

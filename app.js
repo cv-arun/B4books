@@ -63,6 +63,14 @@ app.engine('hbs', hbs.engine({
       }
       return stars
     },
+    substract: function (parameter1,parameter2) {
+      if(parameter1>parameter2){
+        return parseInt(parameter1)-parseInt(parameter2)
+      }else{
+        return 0
+      }
+      
+    },
   }
 }))
 
