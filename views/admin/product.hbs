@@ -5,7 +5,10 @@
       product</a>
     <a class="btn adminPrimary mx-auto shadow" href="/admin/catogory-mangement" style="border:1px solid blue">catagory
       mangement</a>
-      
+
+    <i id="PrintTable" style="border:1px solid blue;font-size:2rem" class="bi bi-printer p-2"></i>
+
+
     <div class="d-flex ml-5"><i class="bi bi-info-square-fill" style="color:var(--adminPrimary)"></i>
       <p class="ml-3">Double click on a row to view more about product</p>
     </div>
@@ -57,7 +60,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
   //data table
@@ -65,6 +68,9 @@
     $('#adminProductTable').DataTable();
   });
 
-
+  function downloadPDFWithBrowserPrint() {
+    window.print();
+  }
+  document.querySelector('#PrintTable').addEventListener('click', downloadPDFWithBrowserPrint);
 
 </script>

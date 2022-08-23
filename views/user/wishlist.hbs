@@ -13,7 +13,7 @@
 
                     <div class="col-md-12 col-lg-8 mx-auto">
                         {{#each response.wishlist}}
-                        <div onmousemove="Starfunction('{{this._id}}',{{this.rating}})" id="remove{{this._id}}"
+                        <div  id="remove{{this._id}}"
                             class="items border border-primary p-4">
                             <div class="product ">
                                 <div class="row">
@@ -74,23 +74,7 @@
 
     document.addEventListener('DOMContentLoaded', count)
 
-    function Starfunction(id, rating) {
-
-
-        document.getElementById(id).innerHTML = null
-
-
-
-        for (let i = 1; i <= rating; i++) {
-            document.getElementById(id).innerHTML += "&#11088;"
-        }
-
-    }
-
-    function remove(id) {
-        
-        document.getElementById('remove'+id).style.display = "none"
-    }
+  
 
 
 

@@ -1,7 +1,9 @@
 <section style="margin-top: 6rem;">
 
-
-    <table class="table table-hover border" id="adminProductTable">
+    <div class="d-flex justify-content-center" id="PrintTable">
+        <i style="font-size:2rem" class="bi bi-printer"></i>
+    </div>
+    <table class="table table-hover border" id="paymentTable">
         <thead>
             <tr>
                 <th>No.</th>
@@ -52,9 +54,12 @@
 <script>
     //data table
     $(document).ready(function () {
-        $('#adminProductTable').DataTable();
+        $('#paymentTable').DataTable();
     });
 
-
+    function downloadPDFWithBrowserPrint() {
+        window.print();
+    }
+    document.querySelector('#PrintTable').addEventListener('click', downloadPDFWithBrowserPrint);
 
 </script>

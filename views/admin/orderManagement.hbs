@@ -1,6 +1,10 @@
 <section style="margin-top: 6rem;">
     <h1 class="text-center">All Orders</h1>
-    <a class="btn btn-primary" href="/admin/return">Return Request</a>
+
+    <div class="d-flex justify-content-evenly">
+        <a class="btn border border-info" href="/admin/return">Return Request</a>
+        <i id="PrintTable" style="font-size:2rem" class="bi bi-printer border border-info p-2"></i>
+    </div>
     <table class="table table-hover border" id="orderDataTable">
         <thead>
             <tr>
@@ -121,6 +125,12 @@
     $(document).ready(function () {
         $('#orderDataTable').DataTable();
     });
+
+    function downloadPDFWithBrowserPrint() {
+        window.print();
+    }
+    document.querySelector('#PrintTable').addEventListener('click', downloadPDFWithBrowserPrint);
+
 
     function delivered(id) {
         axios.get('/admin/delivered/' + id).then((response) => {

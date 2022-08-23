@@ -5,189 +5,193 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="/stylesheets/productcard.css">
+<link rel="stylesheet" href="/stylesheets/productcard.css">
 
 <div class="container-fluid">
-	<section class="mtop-15 row  mx-auto" style="height:50vh">
-		<div id="carouselExampleIndicators" class="carousel slide h-100 w-100 mx-auto" data-ride="carousel">
+	<div id="section1">
+		<section class="mtop-15 row  mx-auto" style="height:50vh" id="banner">
+			<div id="carouselExampleIndicators" class="carousel slide h-100 w-100 mx-auto" data-ride="carousel">
 
-			<div class="carousel-inner w-100 h-100 w-100 row mx-auto">
-				{{#each banner}}
-				{{#if @first}}
-				<div class="carousel-item maxw100 active mx-auto">
-					<img class="d-block mx-auto " src="/images/banner-image/{{this._id}}.jpg" alt="First slide"
-						style="max-height:80% ;width:90%">
+				<div class="carousel-inner w-100 h-100 w-100 row mx-auto">
+					{{#each banner}}
+					{{#if @first}}
+					<div class="carousel-item maxw100 active mx-auto">
+						<img class="d-block mx-auto " src="/images/banner-image/{{this._id}}.jpg" alt="First slide"
+							style="max-height:80% ;width:90%">
+					</div>
+					{{else}}
+					<div class="carousel-item maxw100 mx-auto">
+						<img class="d-block rounded mx-auto" src="/images/banner-image/{{this._id}}.jpg"
+							alt="First slide" style="max-height:100% ;width:90%">
+					</div>
+					{{/if}}
+
+
+					{{/each}}
+
 				</div>
-				{{else}}
-				<div class="carousel-item maxw100 mx-auto">
-					<img class="d-block rounded mx-auto" src="/images/banner-image/{{this._id}}.jpg" alt="First slide"
-						style="max-height:100% ;width:90%">
-				</div>
-				{{/if}}
-
-
-				{{/each}}
-
+				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
 			</div>
-			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</section>
+		</section>
 
-	<section>
+		<section>
 
-		<div class=" mt-3 m-2 border border-info">
-			<h3 class="text-center mt-5">Just Addedd</h3>
+			<div class=" mt-3 m-2 border border-info">
+				<h3 class="text-center mt-5">Just Addedd</h3>
 
-			<div class="container">
-				<div class="row">
-					<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
-						data-interval="1000">
-						<div class="MultiCarousel-inner">
-							{{#each product}}
-							<div class="item" onmouseover="myfunction('{{this._id}}')">
-								<div class="page-inner">
-									<p class="text-center mt-2" id="{{this._id}}2"></p>
+				<div class="container">
+					<div class="row">
+						<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
+							data-interval="1000">
+							<div class="MultiCarousel-inner">
+								{{#each product}}
+								<div class="item" onmouseover="myfunction('{{this._id}}')">
+									<div class="page-inner">
+										<p class="text-center mt-2" id="{{this._id}}2"></p>
 
-									<div class="row w-100">
+										<div class="row w-100">
 
-										<div class="el-wrapper w-100"
-											 id="{{this._id}}1">
-											<a href="/productDetails/{{this._id}}">
+											<div class="el-wrapper w-100" id="{{this._id}}1">
+												<a href="/productDetails/{{this._id}}">
 
-												<div class="box-up">
-													<img class="img image-fluid"
-														src="/images/product-image/{{this._id}}1.jpg" alt="loading..."
-														style="max-width: 100%; max-height: 100%;">
+													<div class="box-up">
+														<img class="img image-fluid"
+															src="/images/product-image/{{this._id}}1.jpg"
+															alt="loading..." style="max-width: 100%; max-height: 100%;">
 
-												</div>
-											</a>
-
-											<div class="img-info ">
-												<div class="info-inner">
-													<span class="p-name text-center">{{this.title}}</span>
-													<span class="p-company text-center">{{this.author}}</span>
-												</div>
-												<div class="a-size text-center ">Rating:<span >{{star this.rating}}</span>
-													<br><span><i id="wish{{this._id}}JustAddedd" onclick="wish('{{this._id}}')"
-															class="bi bi-heart wish{{this._id}}"
-															style="font-size:2rem;color: red;"></i></span>
-												</div>
-											</div>
-
-											<div class="box-down mx-auto">
-												<div class="h-bg">
-													<div class="h-bg-inner"></div>
-												</div>
-
-												<a class="cart btn " onclick="addToCart('{{this._id}}')">
-													<span class="price">{{this.title}}</span>
-													<span class="add-to-cart">
-														<span class="txt">Add to cart</span>
-													</span>
+													</div>
 												</a>
 
-											</div>
+												<div class="img-info ">
+													<div class="info-inner">
+														<span class="p-name text-center">{{this.title}}</span>
+														<span class="p-company text-center">{{this.author}}</span>
+													</div>
+													<div class="a-size text-center ">Rating:<span>{{star
+															this.rating}}</span>
+														<br><span><i id="wish{{this._id}}JustAddedd"
+																onclick="wish('{{this._id}}')"
+																class="bi bi-heart wish{{this._id}}"
+																style="font-size:2rem;color: red;"></i></span>
+													</div>
+												</div>
 
+												<div class="box-down mx-auto">
+													<div class="h-bg">
+														<div class="h-bg-inner"></div>
+													</div>
+
+													<a class="cart btn " onclick="addToCart('{{this._id}}')">
+														<span class="price">{{this.title}}</span>
+														<span class="add-to-cart">
+															<span class="txt">Add to cart</span>
+														</span>
+													</a>
+
+												</div>
+
+											</div>
 										</div>
 									</div>
+
 								</div>
-
+								{{/each}}
 							</div>
-							{{/each}}
+							<button class="btn btn-primary leftLst">
+								< </button>
+									<button class="btn btn-primary rightLst">></button>
 						</div>
-						<button class="btn btn-primary leftLst">
-							< </button>
-								<button class="btn btn-primary rightLst">></button>
 					</div>
+
 				</div>
-
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section>
+		<section>
 
-		<div class=" mt-3 m-2 border border-info ">
-			<h3 class="text-center mt-5">Hot Rental</h3>
+			<div class=" mt-3 m-2 border border-info ">
+				<h3 class="text-center mt-5">Hot Rental</h3>
 
-			<div class="container">
-				<div class="row">
-					<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
-						data-interval="1000">
-						<div class="MultiCarousel-inner">
-							{{#each product}}
-							<div class="item" onmouseover="myfunction('{{this._id}}')">
-								<div class="page-inner">
-									<p class="text-center mt-2" id="{{this._id}}2"></p>
+				<div class="container">
+					<div class="row">
+						<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"
+							data-interval="1000">
+							<div class="MultiCarousel-inner">
+								{{#each product}}
+								<div class="item" onmouseover="myfunction('{{this._id}}')">
+									<div class="page-inner">
+										<p class="text-center mt-2" id="{{this._id}}2"></p>
 
-									<div class="row w-100">
+										<div class="row w-100">
 
-										<div class="el-wrapper w-100">
-											<a href="/productDetails/{{this._id}}">
+											<div class="el-wrapper w-100">
+												<a href="/productDetails/{{this._id}}">
 
-												<div class="box-up">
-													<img class="img image-fluid"
-														src="/images/product-image/{{this._id}}1.jpg" alt="loading..."
-														style="max-width: 100%; max-height: 100%;">
+													<div class="box-up">
+														<img class="img image-fluid"
+															src="/images/product-image/{{this._id}}1.jpg"
+															alt="loading..." style="max-width: 100%; max-height: 100%;">
 
-												</div>
-											</a>
-
-											<div class="img-info ">
-												<div class="info-inner">
-													<span class="p-name text-center">{{this.title}}</span>
-													<span class="p-company text-center">{{this.author}}</span>
-												</div>
-												<div class="a-size text-center ">Rating:<span >{{star this.rating}}</span>
-													<br><span><i id="wish{{this._id}}HotRental" onclick="wish('{{this._id}}')"
-															class="bi bi-heart wish{{this._id}}"
-															style="font-size:2rem;color: red;"></i></span>
-												</div>
-											</div>
-
-											<div class="box-down mx-auto">
-												<div class="h-bg">
-													<div class="h-bg-inner"></div>
-												</div>
-
-												<a class="cart btn " onclick="addToCart('{{this._id}}')">
-													<span class="price">{{this.title}}</span>
-													<span class="add-to-cart">
-														<span class="txt">Add to cart</span>
-													</span>
+													</div>
 												</a>
 
-											</div>
+												<div class="img-info ">
+													<div class="info-inner">
+														<span class="p-name text-center">{{this.title}}</span>
+														<span class="p-company text-center">{{this.author}}</span>
+													</div>
+													<div class="a-size text-center ">Rating:<span>{{star
+															this.rating}}</span>
+														<br><span><i id="wish{{this._id}}HotRental"
+																onclick="wish('{{this._id}}')"
+																class="bi bi-heart wish{{this._id}}"
+																style="font-size:2rem;color: red;"></i></span>
+													</div>
+												</div>
 
+												<div class="box-down mx-auto">
+													<div class="h-bg">
+														<div class="h-bg-inner"></div>
+													</div>
+
+													<a class="cart btn " onclick="addToCart('{{this._id}}')">
+														<span class="price">{{this.title}}</span>
+														<span class="add-to-cart">
+															<span class="txt">Add to cart</span>
+														</span>
+													</a>
+
+												</div>
+
+											</div>
 										</div>
 									</div>
+
 								</div>
-
+								{{/each}}
 							</div>
-							{{/each}}
+							<button class="btn btn-primary leftLst">
+								< </button>
+									<button class="btn btn-primary rightLst">></button>
 						</div>
-						<button class="btn btn-primary leftLst">
-							< </button>
-								<button class="btn btn-primary rightLst">></button>
 					</div>
+
 				</div>
-
 			</div>
-		</div>
-	</section>
-
-	<section>
+		</section>
+	</div>
+	<section id="section2" >
 		<div class="row bg-primary" id="allbooks">
 			<h2 class="text-white m-3 mx-auto">All Books</h2>
 		</div>
-		
+
 		<ul id="myUL">
 			<div class="row">
 
@@ -201,8 +205,7 @@
 
 						<div class="row w-100">
 
-							<div class="el-wrapper w-100" 
-								id="{{this._id}}1">
+							<div class="el-wrapper w-100" id="{{this._id}}1">
 								<a href="/productDetails/{{this._id}}">
 
 									<div class="box-up">
@@ -217,9 +220,10 @@
 										<span class="p-name text-center">{{this.title}}</span>
 										<span class="p-company text-center">{{this.author}}</span>
 									</div>
-									<div class="a-size text-center ">Rating:<span >{{star this.rating}}</span>
+									<div class="a-size text-center ">Rating:<span>{{star this.rating}}</span>
 										<br><span><i id="wish{{this._id}}" onclick="wish('{{this._id}}')"
-												class="bi bi-heart wish{{this._id}}" style="font-size:2rem;color: red;"></i></span>
+												class="bi bi-heart wish{{this._id}}"
+												style="font-size:2rem;color: red;"></i></span>
 									</div>
 								</div>
 
@@ -254,6 +258,10 @@
 </div>
 
 <script>
+
+	
+	
+
 	function myFunction() {
 		var input, filter, ul, li, a, i, txtValue, f;
 		input = document.getElementById("myInput");
@@ -266,8 +274,8 @@
 			a = li[i].getElementsByTagName("a")[0];
 			b = li[i].getElementsByTagName("a")[1];
 			txtValue = a.textContent || a.innerText;
-			txt2=b.textContent || b.innerText
-			if (txtValue.toUpperCase().indexOf(filter) > -1||txt2.toUpperCase().indexOf(filter) > -1) {
+			txt2 = b.textContent || b.innerText
+			if (txtValue.toUpperCase().indexOf(filter) > -1 || txt2.toUpperCase().indexOf(filter) > -1) {
 				f[i].style.display = "";
 			} else {
 				f[i].style.display = "none";

@@ -93,9 +93,9 @@
 								<div class="header_search">
 									<div class="header_search_content">
 										<div class="header_search_form_container">
-											<form action="#allbooks" class="header_search_form clearfix">
+											{{!-- <form action="" class="header_search_form clearfix"> --}}
 												<input type="search" required="required" class="header_search_input"
-													placeholder="Search by title or author" id="myInput" href="#" onkeyup="myFunction()" >
+													placeholder="Search by title or author" id="myInput"  onclick="hidesection1()"  onkeyup="myFunction()" >
 												<div class="custom_dropdown" >
 													<div class="custom_dropdown_list">
 														<span class="custom_dropdown_placeholder clc">All
@@ -110,7 +110,7 @@
 													value="Submit"><img
 														src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
 														alt="" ></button>
-											</form>
+											{{!-- </form> --}}
 										</div>
 									</div>
 								</div>
@@ -192,7 +192,7 @@
 								<div class="page_menu_content">
 
 									<div class="page_menu_search">
-										<form action="#">
+										{{!-- <form action="#"> --}}
 											<input type="search" required="required" class="page_menu_search_input"
 												placeholder="Search for products...">
 											<button type="submit" class="header_search_button trans_300"
@@ -200,7 +200,7 @@
 													src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
 													alt=""></button>
 
-										</form>
+										{{!-- </form> --}}
 									</div>
 									<ul class="page_menu_nav">
 
@@ -252,3 +252,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="/javascripts/userHeader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
