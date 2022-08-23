@@ -5,7 +5,7 @@ const otpverify = require('../authentication/otpverify');
 const adminhelper = require('../helpers/adminhelper');
 const producthelper = require('../helpers/producthelper');
 const userhelper = require('../helpers/userhelper');
-const { jsPDF } = require("jspdf");
+
 
 var router = express.Router();
 
