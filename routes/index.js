@@ -255,10 +255,8 @@ router.get('/membership', verified, function (req, res, next) {
 
 router.get('/choosePlan/:planId', verified, function (req, res, next) {
 console.log("choose plan")
-  userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership,req.session.user.upgradePlan)
+  userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership,req.session.upgradePlan)
     .then((order) => {
-      // req.session.user.upgradePlan=null
-      console.log(order)
       res.render('user/paymentPage', { order })
     }).catch((err) => {
       next(err)
@@ -267,15 +265,16 @@ console.log("choose plan")
 })
 
 router.get('/upgradePlan/:planId', verified, function (req, res, next) {
-req.session.user.upgradePlan=true
-console.log("upgrade plan")
+req.session.upgradePlan=true
+
 res.redirect('/choosePlan/'+req.params.planId)
 })
 
 
 router.post('/checkPayment', verified, function (req, res, next) {
   console.log(req.body)
-  userhelper.verifyPayment(req.body, req.session.user._id).then((response) => {
+  
+  userhelper.verifyPayment(req.body, req.session.user._id,req.session.upgradePlan).then((response) => {
     res.json({ response })
   }).catch((err) => { next(err) })
 

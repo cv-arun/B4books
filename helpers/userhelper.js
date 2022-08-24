@@ -162,14 +162,9 @@ const userhelper = {
 
             let amount;
             adminhelper.showMembershipPlan(planId).then((plan) => {
-                if (renew) {
-                    if (parseInt(plan.membershipFee) > parseInt(renew.membershipFee)) {
-                        amount = parseInt(plan.membershipFee) - parseInt(renew.membershipFee)
-                    }else{
-                        amount=0
-                    }
-
-                } else if (upgrade) {
+                if (upgrade) {
+                        amount = parseInt(plan.membershipFee) - parseInt(renew.membershipFee)   
+                } else if (renew) {
                     amount = parseInt(plan.membershipFee)
                 } else {
                     amount = parseInt(plan.membershipFee) + parseInt(plan.cautionDeposit) + parseInt(plan.registrationFee)
@@ -208,7 +203,7 @@ const userhelper = {
 
         })
     },
-    verifyPayment: (data, userid) => {
+    verifyPayment: (data, userid, upgrade) => {
         return new Promise((resolve, reject) => {
             let body = data.order.id + "|" + data.response.razorpay_payment_id;
             var expectedSignature = crypto.createHmac('sha256', instance.key_secret)
@@ -221,22 +216,32 @@ const userhelper = {
             var response = { signatureIsValid: false }
             if (expectedSignature === data.response.razorpay_signature) {
                 response = { signatureIsValid: true }
-                response.user = assignPlan(userid, data.order.receipt)
+               
+                response.user = assignPlan(userid, data.order.receipt, upgrade)
 
             }
             resolve(response);
         })
         //to find membership id from payment collection orderid is payment collection id
-        async function assignPlan(userid, orderid) {
+        async function assignPlan(userid, orderid, upgrade) {
             paymentmodel.findByIdAndUpdate(orderid, { success: true }).then((data) => {
-
-                usermodel.findByIdAndUpdate(userid, {
-                    membership: data.membership,
-                    membershipstatus: true,
-                    membershipdate: new Date().getTime()
-                }).then(response => {
-                    return (response)
-                })
+                if (!upgrade) {
+                    usermodel.findByIdAndUpdate(userid, {
+                        membership: data.membership,
+                        membershipstatus: true,
+                        membershipdate: new Date().getTime()
+                    }).then(response => {
+                        return (response)
+                    })
+                } else {
+                    console.log("upgrade")
+                    usermodel.findByIdAndUpdate(userid, {
+                        membership: data.membership,
+                        membershipstatus: true,
+                    }).then(response => {
+                        return (response)
+                    })
+                }
 
             })
 
