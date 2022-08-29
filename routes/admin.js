@@ -49,7 +49,7 @@ router.post('/login', function (req, res) {
       req.session.invalid = true;
       res.redirect('/admin/login')
     }
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 router.get('/logout', function (req, res) {
@@ -73,7 +73,7 @@ router.post('/loginwithotp', function (req, res) {
 
     }
 
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 router.post('/check-otp', function (req, res) {
@@ -84,7 +84,7 @@ router.post('/check-otp', function (req, res) {
       req.session.adminlogedin = true
       res.redirect('/admin')
     }
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 })
 
 //product
@@ -92,7 +92,7 @@ router.get('/product-page', verify, function (req, res, next) {
   producthelper.showAllProduct().then((products) => {
 
     res.render('admin/product', { products, admin: true })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 });
 
@@ -100,7 +100,7 @@ router.get('/add-newproduct', verify, function (req, res, next) {
   producthelper.showCatagory().then((catagories) => {
 
     res.render('admin/addNewProduct', { catagories, admin: true })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 });
 
@@ -126,7 +126,7 @@ router.post('/add-product', verify, function (req, res, next) {
       }
     }
     res.redirect('/admin/add-newproduct')
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 });
 
 
@@ -136,7 +136,7 @@ router.get('/deleteProduct/:id', verify, function (req, res, next) {
   console.log(prodectId)
   producthelper.deleteProduct(prodectId).then((response) => {
     res.redirect('/admin/product-page')
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 })
 
 
@@ -149,8 +149,7 @@ router.get('/prodectUpdatePage/:id', verify, function (req, res, next) {
     })
 
   }).catch((err) => {
-    res.status(404)
-    next()
+    err.admin=true;next(err)
   })
 
 
@@ -188,7 +187,7 @@ router.post('/updateProduct/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 
 
@@ -198,7 +197,7 @@ router.post('/updateProduct/:id', verify, function (req, res, next) {
 router.get('/prodectDetails/:id', verify, function (req, res, next) {
   producthelper.showProduct(req.params.id).then((product) => {
     res.render('admin/singleProduct', { admin: true, product })
-  }).catch((err) => { next(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 })
 
 
@@ -215,7 +214,7 @@ router.get('/catogory-mangement', verify, function (req, res, next) {
   producthelper.showCatagory().then((data) => {
 
     res.render('admin/catagoryManagement', { data, admin: true, updateErr, AddErr })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 });
 
@@ -227,14 +226,14 @@ router.post('/add-catagory', verify, function (req, res, next) {
       req.session.CatagoryExist = 'This catagory alredy exist';
       res.redirect('/admin/catogory-mangement')
     }
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 });
 
 router.post('/add-subcatagory', verify, function (req, res, next) {
   producthelper.addSubCatagory(req.body).then((response) => {
 
     res.redirect('/admin/catogory-mangement')
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 });
 
 router.get('/show-subCatagory/:id', verify, function (req, res, next) {
@@ -249,7 +248,7 @@ router.get('/show-subCatagory/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 
 });
@@ -267,7 +266,7 @@ router.post('/editCatogory/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
@@ -278,7 +277,7 @@ router.get('/user-management', verify, function (req, res, next) {
   adminhelper.showAllUsers().then((users) => {
     console.log(users);
     res.render('admin/user-management', { users, admin: true })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 
@@ -294,7 +293,7 @@ router.get('/view-user/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 
 })
@@ -307,7 +306,7 @@ router.get('/blockUser/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
@@ -317,7 +316,7 @@ router.get('/UnblockUser/:id', verify, function (req, res, next) {
     adminhelper.UnblockUser(userId).then(() => { res.redirect('/admin/view-user/' + userId) })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
@@ -328,7 +327,7 @@ router.get('/membershipManagement', verify, function (req, res, next) {
   adminhelper.showMembershipPlans().then((membershipPlans) => {
     res.render('admin/membershipManagement', { admin: true, membershipPlans })
 
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 })
 
 
@@ -337,7 +336,7 @@ router.post('/addNewPlan', verify, function (req, res, next) {
   adminhelper.membership(req.body).then((response) => {
     console.log(response)
     res.redirect('/admin/membershipManagement')
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 
@@ -346,7 +345,7 @@ router.get('/editPlan/:id', verify, function (req, res, next) {
     res.render('admin/editPlan', { admin: true, membershipPlan })
   }).catch((error) => {
     res.status(404)
-    next()
+    err.admin=true;next(err)
   })
 
 })
@@ -357,7 +356,7 @@ router.post('/updatePlan/:id', verify, function (req, res, next) {
     res.redirect('/admin/membershipManagement')
   }).catch((error) => {
     res.status(404)
-    next()
+    err.admin=true;next(err)
   })
 
 })
@@ -366,10 +365,10 @@ router.get('/deletePlan/:id', verify, function (req, res, next) {
   try {
     adminhelper.deletePlan(req.params.id).then((data) => {
       res.redirect('/admin/membershipManagement')
-    }).catch((err) => { reject(err) })
+    }).catch((err) => { err.admin=true;next(err) })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
@@ -378,7 +377,7 @@ router.get('/deletePlan/:id', verify, function (req, res, next) {
 router.get('/banner', verify, function (req, res, next) {
   userhelper.showbanner().then((banner) => {
     res.render('admin/banner', { admin: true, banner })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 
@@ -400,7 +399,7 @@ router.get('/deleteBanner/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
@@ -409,7 +408,7 @@ router.get('/order', verify, function (req, res, next) {
 
   adminhelper.showOrders().then((orders) => {
     res.render('admin/orderManagement', { orders, admin: true })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 
@@ -420,7 +419,7 @@ router.get('/delivered/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
@@ -431,14 +430,14 @@ router.get('/shiped/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 })
 
 router.get('/return', verify, function (req, res, next) {
   adminhelper.returnRequests().then((request) => {
     res.render('admin/returnManagement', { admin: true, request })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 
@@ -449,7 +448,7 @@ router.post('/returned/:id', verify, function (req, res, next) {
     })
   }
   catch (err) {
-    next(err)
+    err.admin=true;next(err)
   }
 
 })
@@ -458,7 +457,7 @@ router.post('/returned/:id', verify, function (req, res, next) {
 router.get('/payments', verify, function (req, res, next) {
   adminhelper.paymentDetails().then((payment) => {
     res.render('admin/viewPayment', { admin: true, payment })
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 })
 
 
@@ -477,9 +476,9 @@ router.get('/ordertChart', verify, function (req, res, next) {
 
     adminhelper.returnRequests().then((request) => {
       res.json({ orders, request })
-    }).catch((err) => { reject(err) })
+    }).catch((err) => { err.admin=true;next(err) })
 
-  }).catch((err) => { reject(err) })
+  }).catch((err) => { err.admin=true;next(err) })
 
 })
 
