@@ -257,7 +257,7 @@ function wish(id) {
 				document.getElementById("wish" + id).className = "bi bi-heart-fill";
 				document.getElementById("wish" + id + "HotRental").className = "bi bi-heart-fill";
 				document.getElementById("wish" + id + "JustAddedd").className = "bi bi-heart-fill";
-				
+
 			} else {
 				document.getElementById("wish" + id).className = "bi bi-heart";
 				document.getElementById("wish" + id + "HotRental").className = "bi bi-heart";
@@ -265,7 +265,7 @@ function wish(id) {
 
 			}
 			wishCount()
-
+			
 
 		}
 	})
@@ -273,13 +273,14 @@ function wish(id) {
 
 function remove(id) {
 	document.getElementById('remove' + id).style.display = "none";
+
 	wishCount()
 	setTimeout(() => {
-			wishCount()
-		}, 100);
+		wishCount()
+	}, 100);
 }
 
-function hidesection1(){
+function hidesection1() {
 	document.getElementById('section1').style.display = 'none';
 	document.getElementById('section2').style.marginTop = '10rem';
 }
