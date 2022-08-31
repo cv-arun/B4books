@@ -509,5 +509,10 @@ router.get('/lastWeekRevenue', verify, function (req, res, next) {
   })
 })
 
+router.use((req,res,next)=>{
+  let err = {}
+  err.admin = true
+  next(err)
+})
 
 module.exports = router;
