@@ -308,14 +308,11 @@ const userhelper = {
     placeOrder: (addressId, userId) => {
         return new Promise(async (resolve, reject) => {
             let cart = await userhelper.showCartProducts(userId)
-            console.log(cart.cartItems + "hello")
-
+    
             newOrder = new ordermodel({
                 userid: userId,
                 adress: addressId,
                 product: cart.cartItems,
-
-
             })
             newOrder.save().then(async (result) => {
 

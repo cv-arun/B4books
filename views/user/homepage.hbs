@@ -187,7 +187,7 @@
 			</div>
 		</section>
 	</div>
-	<section id="section2" >
+	<section id="section2">
 		<div class="row bg-primary" id="allbooks">
 			<h2 class="text-white m-3 mx-auto">All Books</h2>
 		</div>
@@ -239,6 +239,8 @@
 											</span>
 										</a>
 										<a style="display:none">{{this.author}}</a>
+										<a style="display:none">{{this.catagory.catagory}}</a>
+										<a style="display:none">{{this.subCatogory.subCatagory}}</a>
 									</li>
 								</div>
 
@@ -259,8 +261,8 @@
 
 <script>
 
-	
-	
+
+
 
 	function search() {
 		var input, filter, ul, li, a, i, txtValue, f;
@@ -273,9 +275,13 @@
 		for (i = 0; i < li.length; i++) {
 			a = li[i].getElementsByTagName("a")[0];
 			b = li[i].getElementsByTagName("a")[1];
+			c = li[i].getElementsByTagName("a")[2];
+			d = li[i].getElementsByTagName("a")[3];
 			txtValue = a.textContent || a.innerText;
 			txt2 = b.textContent || b.innerText
-			if (txtValue.toUpperCase().indexOf(filter) > -1 || txt2.toUpperCase().indexOf(filter) > -1) {
+			txt3 = c.textContent || c.innerText
+			txt4 = d.textContent || d.innerText
+			if (txtValue.toUpperCase().indexOf(filter) > -1 || txt2.toUpperCase().indexOf(filter) > -1 || txt3.toUpperCase().indexOf(filter) > -1 || txt4.toUpperCase().indexOf(filter) > -1) {
 				f[i].style.display = "";
 			} else {
 				f[i].style.display = "none";
