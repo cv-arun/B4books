@@ -98,15 +98,14 @@
 													placeholder="Search by title or author" id="myInput"  onclick="hidesection1()"  onkeyup="search()" >
 												<div class="custom_dropdown" >
 													<div class="custom_dropdown_list">
-														<span class="custom_dropdown_placeholder clc">All
-															Categories</span>
+														<a href="/allproducts" class="custom_dropdown_placeholder clc text-white">Filter by
+															Categories</a>
 														<i class="fas fa-chevron-down"></i>
-														<ul class="custom_list clc"
-															style="overflow-y:scroll;height:5rem ;">
-															<li><a class="clc" >All Categories</a></li>
+													
+															
 													</div>
 												</div>
-												<button type="submit" class="header_search_button trans_300"
+												<button onclick="location.href='/allproducts'" class="header_search_button trans_300"
 													value="Submit"><img
 														src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
 														alt="" ></button>

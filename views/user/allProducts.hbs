@@ -14,39 +14,42 @@
         </div>
 
         <ul id="myUL" class="row">
-            <div class="col-md-3 mt-4">
-                <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="btn w-100  d-flex justify-content-between" type="button">
+            <div class="col-md-3 mr-3">
+                <div class="col-md-3 mr-5 mt-4" style="position: fixed;">
+                    <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="btn w-100  d-flex justify-content-between" type="button">
 
-                                <span onclick="filterByCatagory('')">All Catagory</span>
+                                    <span onclick="filterByCatagory('')">All Catagory</span>
 
-                            </button>
-                        </h2>
+                                </button>
+                            </h2>
+                        </div>
+
                     </div>
-
-                </div>
-                {{#each catagory}}
-                <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}"
-                    onmouseover="getsubcatagory('{{this._id}}')">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="btn w-100  d-flex justify-content-between" type="button">
-                                <span onclick="filterByCatagory('{{this.catagory}}')">{{this.catagory}}</span>
-                                <span id="signIcon{{this._id}}" class="bi bi-plus-lg"
-                                    onclick="showlist('{{this._id}}')"></span>
-                            </button>
-                        </h2>
-                        <div id="list{{this._id}}" style="display: none;">
-                            <div id="subcatagory{{this._id}}" onclick="gettext('{{this._id}}')" class="accordion-body">
-                                <p>Loading...</p>
+                    {{#each catagory}}
+                    <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}"
+                        onmouseover="getsubcatagory('{{this._id}}')">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="btn w-100  d-flex justify-content-between" type="button">
+                                    <span onclick="filterByCatagory('{{this.catagory}}')">{{this.catagory}}</span>
+                                    <span id="signIcon{{this._id}}" class="bi bi-plus-lg"
+                                        onclick="showlist('{{this._id}}')"></span>
+                                </button>
+                            </h2>
+                            <div id="list{{this._id}}" style="display: none;">
+                                <div id="subcatagory{{this._id}}" onclick="gettext('{{this._id}}')"
+                                    class="accordion-body">
+                                    <p>Loading...</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
             <div class="row col-md-9">
 
@@ -135,7 +138,7 @@
 
         let subcatagory = document.getElementById(`subcatagory${id}`).innerText;
 
-        if (subcatagory == 'Loading...' ||!subcatagory) {
+        if (subcatagory == 'Loading...' || !subcatagory) {
             subcatagory = "axios sent";
             axios.get(`/admin/show-subCatagory/${id}`).then((subCatagory) => {
                 document.getElementById(`subcatagory${id}`).innerHTML = null
