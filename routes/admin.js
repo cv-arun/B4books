@@ -236,13 +236,13 @@ router.post('/add-subcatagory', verify, function (req, res, next) {
   }).catch((err) => { err.admin=true;next(err) })
 });
 
-router.get('/show-subCatagory/:id', verify, function (req, res, next) {
+router.get('/show-subCatagory/:id', function (req, res, next) {
 
   try {
     let id = req.params.id
 
     producthelper.ShowSubCatagory(id).then((data) => {
-
+console.log(data)
       res.json({ data })
 
     })

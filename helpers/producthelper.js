@@ -136,6 +136,7 @@ module.exports = {
     },
     showAllProduct: () => {
         return new Promise(async (resolve, reject) => {
+            
             try {
                 const product = await Productmodel.find().populate('subCatogory').populate('catagory').lean()
                 resolve(product)

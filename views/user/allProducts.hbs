@@ -1,0 +1,194 @@
+<link rel="stylesheet" href="/stylesheets/navbar.css">
+<link rel="stylesheet" href="/stylesheets/landingpage.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="/stylesheets/productcard.css">
+
+<div class="container-fluid">
+    <section id="section2" style="margin-top: 10rem;">
+        <div class="row bg-primary" id="allbooks">
+            <h2 class="text-white m-3 mx-auto">All Books</h2>
+        </div>
+
+        <ul id="myUL" class="row">
+            <div class="col-md-3 mt-4">
+                <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="btn w-100  d-flex justify-content-between" type="button">
+
+                                <span onclick="filterByCatagory('')">All Catagory</span>
+
+                            </button>
+                        </h2>
+                    </div>
+
+                </div>
+                {{#each catagory}}
+                <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}"
+                    onmouseover="getsubcatagory('{{this._id}}')">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="btn w-100  d-flex justify-content-between" type="button">
+                                <span onclick="filterByCatagory('{{this.catagory}}')">{{this.catagory}}</span>
+                                <span id="signIcon{{this._id}}" class="bi bi-plus-lg"
+                                    onclick="showlist('{{this._id}}')"></span>
+                            </button>
+                        </h2>
+                        <div id="list{{this._id}}" style="display: none;">
+                            <div id="subcatagory{{this._id}}" onclick="gettext('{{this._id}}')" class="accordion-body">
+                                <p>Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{/each}}
+            </div>
+            <div class="row col-md-9">
+
+                {{#each product}}
+
+                <div class="col-md-4 mx-auto f" onmouseover="myfunction('{{this._id}}')">
+
+
+                    <div class="page-inner">
+                        <p class="text-center mt-2" id="{{this._id}}2"></p>
+
+                        <div class="row w-100">
+
+                            <div class="el-wrapper w-100" id="{{this._id}}1">
+                                <a href="/productDetails/{{this._id}}">
+
+                                    <div class="box-up">
+                                        <img class="img image-fluid" src="/images/product-image/{{this._id}}1.jpg"
+                                            alt="loading..." style="max-width: 100%; max-height: 100%;">
+
+                                    </div>
+                                </a>
+
+                                <div class="img-info ">
+                                    <div class="info-inner">
+                                        <span class="p-name text-center">{{this.title}}</span>
+                                        <span class="p-company text-center">{{this.author}}</span>
+                                    </div>
+                                    <div class="a-size text-center ">Rating:<span>{{star this.rating}}</span>
+                                        <br><span><i id="wish{{this._id}}" onclick="wish('{{this._id}}')"
+                                                class="bi bi-heart wish{{this._id}}"
+                                                style="font-size:2rem;color: red;"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="box-down mx-auto">
+                                    <div class="h-bg">
+                                        <div class="h-bg-inner"></div>
+                                    </div>
+                                    <li>
+                                        <a class="cart btn " onclick="addToCart('{{this._id}}')">
+                                            <span class="price">{{this.title}}</span>
+                                            <span class="add-to-cart">
+                                                <span class="txt">Add to cart</span>
+                                            </span>
+                                        </a>
+                                        <a style="display:none">{{this.author}}</a>
+                                        <a style="display:none">{{this.catagory.catagory}}</a>
+                                        <a style="display:none">{{this.subCatogory.subCatagory}}</a>
+                                    </li>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                {{/each}}
+
+            </div>
+        </ul>
+    </section>
+</div>
+
+<script>
+
+    function filterByCatagory(text) {
+        document.getElementById('myInput').value = text;
+        search()
+    }
+
+    function gettext(id) {
+        for (let i = 0; i < 10; i++) {
+            document.getElementById(`${id + i}`).onclick = () => {
+                document.getElementById('myInput').value = document.getElementById(`${id + i}`).innerText;
+                search()
+            }
+        }
+
+    }
+
+    function getsubcatagory(id) {
+
+        let subcatagory = document.getElementById(`subcatagory${id}`).innerText;
+
+        if (subcatagory == 'Loading...' ||!subcatagory) {
+            subcatagory = "axios sent";
+            axios.get(`/admin/show-subCatagory/${id}`).then((subCatagory) => {
+                document.getElementById(`subcatagory${id}`).innerHTML = null
+                subCatagory.data.data.map((curr, index) => {
+                    console.log(curr.subCatagory)
+                    document.getElementById(`subcatagory${id}`).innerHTML += `<span id=${id + index} style="color:green">${curr.subCatagory}</span><br>`
+                })
+            })
+        }
+
+    }
+    function showlist(id) {
+
+        let d = document.getElementById(`list${id}`).style.display
+        if (d == 'none') {
+            document.getElementById(`list${id}`).style.display = 'block'
+            document.getElementById(`signIcon${id}`).className = 'bi bi-dash-lg'
+        } else {
+            document.getElementById(`signIcon${id}`).className = 'bi bi-plus-lg'
+            document.getElementById(`list${id}`).style.display = 'none'
+        }
+    }
+
+
+    function search() {
+        var input, filter, ul, li, a, i, txtValue, f;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        f = ul.getElementsByClassName('f')
+        li = ul.getElementsByTagName("li");
+        console.log(li[0].getElementsByTagName("a"))
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            b = li[i].getElementsByTagName("a")[1];
+            c = li[i].getElementsByTagName("a")[2];
+            d = li[i].getElementsByTagName("a")[3];
+            txtValue = a.textContent || a.innerText;
+            txt2 = b.textContent || b.innerText
+            txt3 = c.textContent || c.innerText
+            txt4 = d.textContent || d.innerText
+            if (txtValue.toUpperCase().indexOf(filter) > -1 || txt2.toUpperCase().indexOf(filter) > -1 || txt3.toUpperCase().indexOf(filter) > -1 || txt4.toUpperCase().indexOf(filter) > -1) {
+                f[i].style.display = "";
+            } else {
+                f[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+<script src="/javascripts/landingpage.js"></script>
+<script src="/javascripts/userHeader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+
+<!-- header style-->

@@ -54,6 +54,14 @@ router.get('/productDetails/:id', function (req, res, next) {
   })
 })
 
+router.get('/allproducts',function (req, res, next){
+  
+  producthelper.showAllProduct().then(async(product) => {
+    let catagory=await producthelper.showCatagory()
+    res.render('user/allProducts', {catagory, product, userhead: true })
+  })
+})
+
 router.get('/register', function (req, res, next) {
   req.session.register = true;
   res.redirect('/login');
@@ -254,8 +262,8 @@ router.get('/membership', verified, function (req, res, next) {
 })
 
 router.get('/choosePlan/:planId', verified, function (req, res, next) {
-console.log("choose plan")
-  userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership,req.session.upgradePlan)
+  console.log("choose plan")
+  userhelper.choosePlan(req.session.user._id, req.params.planId, req.session.user.membership, req.session.upgradePlan)
     .then((order) => {
       res.render('user/paymentPage', { order })
     }).catch((err) => {
@@ -265,16 +273,16 @@ console.log("choose plan")
 })
 
 router.get('/upgradePlan/:planId', verified, function (req, res, next) {
-req.session.upgradePlan=true
+  req.session.upgradePlan = true
 
-res.redirect('/choosePlan/'+req.params.planId)
+  res.redirect('/choosePlan/' + req.params.planId)
 })
 
 
 router.post('/checkPayment', verified, function (req, res, next) {
   console.log(req.body)
-  
-  userhelper.verifyPayment(req.body, req.session.user._id,req.session.upgradePlan).then((response) => {
+
+  userhelper.verifyPayment(req.body, req.session.user._id, req.session.upgradePlan).then((response) => {
     res.json({ response })
   }).catch((err) => { next(err) })
 
