@@ -15,8 +15,8 @@
 
         <ul id="myUL" class="row">
             <div class="col-md-3 mr-3">
-                <div class="col-md-3 mr-5 mt-4" style="position: fixed;">
-                    <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}">
+                <div class="mr-5 mt-4 sticky-top" >
+                    <div class="accordion accordion-flush mt-1" id="accordionFlushExample{{this._id}}" style="margin-top: 500px;">
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="btn w-100  d-flex justify-content-between" type="button">
@@ -51,7 +51,7 @@
                     {{/each}}
                 </div>
             </div>
-            <div class="row col-md-9">
+            <div class="row col-md-9 " style="overflow-y: scroll; height: 80vh;">
 
                 {{#each product}}
 
@@ -170,7 +170,6 @@
         ul = document.getElementById("myUL");
         f = ul.getElementsByClassName('f')
         li = ul.getElementsByTagName("li");
-        console.log(li[0].getElementsByTagName("a"))
         for (i = 0; i < li.length; i++) {
             a = li[i].getElementsByTagName("a")[0];
             b = li[i].getElementsByTagName("a")[1];

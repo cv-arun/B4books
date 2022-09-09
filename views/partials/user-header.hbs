@@ -192,12 +192,15 @@
 
 									<div class="page_menu_search">
 										{{!-- <form action="#"> --}}
-											<input type="search" required="required" class="page_menu_search_input"
-												placeholder="Search for products...">
-											<button type="submit" class="header_search_button trans_300"
-												value="Submit"><img
-													src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
-													alt=""></button>
+										{{!-- <input type="search" required="required" class="header_search_input"
+													placeholder="Search by title or author" id="myInput"  onclick="hidesection1()"  onkeyup="search()" >
+												<div class="custom_dropdown" >
+												
+												</div>
+												<button onclick="location.href='/allproducts'" class="header_search_button trans_300"
+													value="Submit"><img
+														src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918770/search.png"
+														alt="" ></button> --}}
 
 										{{!-- </form> --}}
 									</div>
@@ -214,7 +217,10 @@
 											<a href="/my-account">My account</a>
 										</li>
 										<li class="page_menu_item">
-											<a href="/">Products <i class="fa fa-angle-down"></i></a>
+											<a href="/allproducts">Products <i class="fa fa-angle-down"></i></a>
+										</li>
+										<li class="page_menu_item">
+											<a href="/wish">Wish list <i class="fa fa-angle-down"></i></a>
 										</li>
 										<li class="page_menu_item">
 											{{#if user}}
