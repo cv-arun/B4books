@@ -19,7 +19,7 @@ management tool along with cart and payment feature.It is developed using expres
  eamil:admin@gmail.com
  password:123456
  
- ## Features
+
 
 
 ## Features
