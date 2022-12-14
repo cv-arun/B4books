@@ -21,10 +21,28 @@ management tool along with cart and payment feature.It is developed using expres
  
  ## Features
 
-- User can choose a suscription plan and pay online
-- User can add book to cart,rent and return according to plan
-- User can search book,add to wish list and view book
-- Admin have user mangement,plan management ,banner managemenment,order and return management
+
+## Features
+#### User side
+
+- Login - User can Login with otp or credentials.Using twilio for sms otp verification
+- Home page - In home page all the books are shown in cards,Users can view details,add to cart and wishlist
+- Search - User can search books by title,author,catagory and sucatagory
+- Profile - user have options to view,edit and update personal details and Adresses , user can view order history and user can make a return request books
+- Cart - user can add new books,remove books and checkout for delivery.Users cannot add same book to cart and limited to number of books per cart by their plan
+- wishlist - User can add and remove thier favorite books to wishlist
+- Membership plan - User can choose ,Upgrade and renew plan and make their payment
+- payment - User can make payment through upi,Card or internet banking.Payment is powerd by Razorpay
+
+
+#### Admin side
+- Dash board - It contains graphs and stats of sales and orders
+- User management - Admin can block/Unblock users.Admin can view details of users like number of books currently holding,returned books etc...
+- Product management - Admin can view,Add,Edit,Update and delete books
+- Plan management - Admin can view,Add,Edit,Update and delete subscription plans
+- Order management - Admin can view oreders and update shipment stats
+- Banner management - Add and delete banners
+- catagory management - admin can add and update catagory and subcatagory
 
 
   ## Screenshots
